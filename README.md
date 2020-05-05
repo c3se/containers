@@ -6,7 +6,8 @@
    
    The material is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
    even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the  
-   GNU GPL v3.0 License for more details. \ 
+   GNU GPL v3.0 License for more details.
+   
    Copyright © 2020, Soheil Soltani, Chalmers Center for Computational Science and Engineering (C3SE) 
 
 # Background
