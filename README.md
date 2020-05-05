@@ -1,4 +1,4 @@
-# Building and using containers in HPC environments"
+# Building and using containers in HPC environments
 ## container-based solutions to share reproducible science
 
    The following material is Open Source: you can redistribute it and/or modify it under the terms 
@@ -6,8 +6,9 @@
    
    The material is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
    even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the  
-   GNU GPL v3.0 License for more details. 
-   Copyright © 2020, Soheil Soltani, Chalmers Center for Computational Science and Engineering (C3SE) 
+   GNU GPL v3.0 License for more details. \ 
+   Copyright © 2020, Soheil Soltani, \
+   Chalmers Center for Computational Science and Engineering (C3SE) 
 
 # Background
 * Containers provide:
@@ -16,8 +17,8 @@
 * On a linux system, there can be many isolated containers running simultaneously 
     * gives the illusion that each one is the *only* process running on the host
 * In this tutorial, we will show how to:
-    * build Docker and Singularity images, and
-    * use an already-built image in an HPC environment
+    * build Docker and Singularity images
+    * run an image in an HPC environment
     * use Nvidia's [HPCCM](https://github.com/NVIDIA/hpc-container-maker) tool to prepare optimized container recipes
 
 # Docker and Singularity
@@ -67,7 +68,7 @@ In this approach, the mpirun command runs on the host:
 * Manages the communication among the MPI ranks
 
 This fits perfectly with the regular workflow of submitting jobs on the HPC clusters, and is, therefore, the recommended approach. There is one thing to keep in mind however: \
-The MPI runtime on the host needs to be able to communicate with the MPI library inside the container; therefore, i) there must be the same implementation of the MPI standard (e.g. OpenMPI) inside the container, and, ii) the version of the two MPI libraries should be as close to one another as possible to prevent unpredicted behaviour (ideally the exact same version).
+The MPI runtime on the host needs to be able to communicate with the MPI library inside the container; therefore, i) there must be the same implementation of the MPI standard (e.g. OpenMPI) inside the container, and, ii) the version of the two MPI libraries should be as close to one another as possible to prevent unpredictable behavior (ideally the exact same version).
 
 # Image-based MPI runtime
 * In this approach, the MPI launcher is called from within the container; therefore, it can even run on a host system without an MPI installation (your challenge would be to find one!): \
@@ -103,7 +104,7 @@ which can be built using:
 `sudo docker build -t myImage:someTag -f docker/Dockerfile . `
 
 * the Dockerfile contains the recipe
-* the `-t` option specifes NAME:TAG
+* the `-t` option specifies NAME:TAG
 * the **.** at the end of the command specifies the path to use for the build, i.e. the sandbox from which the host files are accessible during the build process.
 * Running the image:
     * `sudo docker run --rm -it myImage /command/to/run/inside/image`
@@ -112,8 +113,8 @@ which can be built using:
 	
 # File layer deduplication
 * If the same file is modified in a subsequent layer, it causes that layer to duplicate the entire file resulting in an unnecessarily increased size.
-* To prevent such redundancy, the best practice is to keep all the modifying actions to the same file in the same docker instruction (using e.g. `&&` to concantenate shell commands).
-    * **Note** that this prevents caching the layers, so maitain a balanced level between the two alternatives
+* To prevent such redundancy, the best practice is to keep all the modifying actions to the same file in the same docker instruction (using e.g. `&&` to concatenate shell commands).
+    * **Note** that this prevents caching the layers, so maintain a balanced level between the two alternatives
 	* If desired, do a bit of cleanup after package installation: `rm -rf /var/lib/apt/lists/*` in the same instructions as they are created
 
 
@@ -143,7 +144,7 @@ Conceptually, HPCCM uses building blocks. For instance, openmpi is a building bl
 Stage0 += baseimage(image='nvidia/cuda:9.2-devel-centos7')
 Stage0 += openmpi(infiniband=False)
 ```
-The publically available CUDA base images can be accessed here: <https://hub.docker.com/r/nvidia/cuda/>
+The publicaly available CUDA base images can be accessed here: <https://hub.docker.com/r/nvidia/cuda/>
 
 
 # Building application container with HPCCM
@@ -157,11 +158,11 @@ The publically available CUDA base images can be accessed here: <https://hub.doc
     * `singularity build my_sing_app.sif docker-daemon://my_awesome_app:latest`
 
 # Build your own singularity container
-Singularity is compatible with Docker; therefore, the following **best practice** for building containers can be recommended: \
-    1. Specify the content of the desired container with HPCCM
-    2. Build the image with Docker
-    3. Transform the Docker image to a Singularity one
-    4. Use Singularity runtime to execute the image on the target HPC system    
+Singularity is compatible with Docker; therefore, the following **best practice** for building containers can be recommended: 
+1. Specify the content of the desired container with HPCCM
+2. Build the image with Docker
+3. Transform the Docker image to a Singularity one
+4. Use Singularity runtime to execute the image on the target HPC system    
 
 * The advantage of taking the second step above is that one can tune the layers to reduce the size of the final image. If the image size is not a major concern, you can directly obtain a singularity build recipe from HPCCM and bypass step 3.
 
@@ -169,7 +170,7 @@ Singularity is compatible with Docker; therefore, the following **best practice*
 * Scilabs Inc. YouTube channel: <https://www.youtube.com/channel/UCsxpqAJKGJBMEFHFr-5VL2w/featured>
 * Docker's library of container images: <https://hub.docker.com/>
 * Singularity container registry: <https://singularity-hub.org/>
-* Nvidia's NGC catalogue including an up-to-date plethora of HPC/AI/Visualization container images verified by Nvidia: <https://ngc.nvidia.com>
+* Nvidia's NGC catalog including an up-to-date plethora of HPC/AI/Visualization container images verified by Nvidia: <https://ngc.nvidia.com>
 * Nvidia's HPC Container Maker: <https://github.com/NVIDIA/hpc-container-maker>
 * Open Containers Image Specifications: <https://github.com/opencontainers/image-spec>
 * Singularity user's guide: <https://sylabs.io/guides/3.2/user-guide/quick_start.html>
@@ -178,4 +179,4 @@ Singularity is compatible with Docker; therefore, the following **best practice*
 
 # Summary
 We hope that by now you feel more comfortable with building and running HPC containers across a compute cluster. \
-We will continue adding more hands-on material to this section. If you find any errors or deprecated feaetures in the material, feel free to send us an email: <support@c3se.chalmers.se> or open a pull-request. 
+We will continue adding more hands-on material to this section. If you find any errors or deprecated features in the material, feel free to send us an email: <support@c3se.chalmers.se> or open a pull-request. 
