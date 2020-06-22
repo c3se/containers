@@ -17,3 +17,9 @@ TensorFlow was originally developed by researchers and engineers working on the 
 * See `/workspace/README.md` inside the container for information on customizing your TensorFlow image.
 
 * For further information see: <https://ngc.nvidia.com/catalog/containers/nvidia:tensorflow>
+
+* Brief usage guide: include and edit the following line in your job submission script:
+`singularity exec /apps/hpc-ai-containers/TensorFlow/TensorFlow_vXXX.sif python MY_PROGRAM.py`
+
+* For alternative ways of using container images, see <https://github.com/c3se/containers/blob/master/README.md>
+
