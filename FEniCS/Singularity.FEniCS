@@ -16,7 +16,6 @@ requirements.txt
 /opt/conda/bin/conda install --yes --file requirements.txt
 
 
-
 %help
 "A container image of the FEniCS project."
 
