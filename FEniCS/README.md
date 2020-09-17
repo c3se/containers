@@ -4,7 +4,7 @@ Containerized image of the FEniCS project using conda installation based on the 
 
 ## Usage
 First, pull the image:
-<singularity pull shub://c3se/containers:fenics> \
+`singularity pull shub://c3se/containers:fenics` \
 
 and then use the container in your job script: \
-<singularity exec containers_fenics.sif ...>
+`singularity exec containers_fenics.sif ...`
