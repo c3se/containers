@@ -1,0 +1,2 @@
+bootstrap: docker
+from: nvcr.io/nvidia/tensorflow:20.08-tf2-py3
