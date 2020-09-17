@@ -22,5 +22,7 @@ then use the image in your job submission script:
     * See `/workspace/README.md` inside the container for information on customizing your TensorFlow image
     * TensorFlow tutorials: <https://www.tensorflow.org/tutorials>
     * For further information see: <https://ngc.nvidia.com/catalog/containers/nvidia:tensorflow>
-    
-* For instructions on how to run singularity container images on our HPC cluster, see the tutorial in this repository <https://github.com/c3se/containers/tree/master/Tutorial>
+
+## Further information
+
+For instructions on how to run singularity container images on our HPC cluster, see the tutorial in this repository <https://github.com/c3se/containers/tree/master/Tutorial>
