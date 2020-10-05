@@ -1,0 +1,2 @@
+bootstrap: docker
+from: nvcr.io/nvidia/pytorch:20.09-py3
