@@ -1,0 +1,3 @@
+bootstrap: docker
+from: tensorflow/tensorflow:latest-gpu-jupyter
+
