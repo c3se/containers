@@ -14,9 +14,9 @@ First, pull the container using the following command:
 then use the image in your job submission script:
 `singularity exec TensorFlow_vXXX.sif python YOUR-PROGRAM.py`
 
-Available images to pull:
-`c3se/containers:tensorflow-v2.3.1-tf2-py3-gpu-jupyter`
-`c3se/containers:tensorflow-v2.2.0-tf2-py3-ngc-r20.08`
+* Available images to pull:
+`c3se/containers:tensorflow-v2.3.1-tf2-py3-gpu-jupyter` \
+`c3se/containers:tensorflow-v2.2.0-tf2-py3-ngc-r20.08` \
 `c3se/containers:tensorflow-v2.1.0-tf2-py3-ngc-r20.03`
 
 * Running TensorFlow: TensorFlow can be imported as a python module:
