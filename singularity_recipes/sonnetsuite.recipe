@@ -1,0 +1,25 @@
+Bootstrap: docker
+From: centos:7
+
+%files
+    sonnetsuite.17.52.1.linux64.tar
+
+%post
+    yum install -y glibc freetype fontconfig zlib libdrm qt5-qtbase
+
+    tar xf sonnetsuite.17.52.1.linux64.tar
+    rm sonnetsuite.17.52.1.linux64.tar
+    cd sonnetsoftware
+    mkdir -p /opt/sonnet
+    bash ./sonnetinstall -skiplicense
+    /opt/sonnet
+    yes
+    cd ..
+    rm -r sonnetsoftware
+    cd /opt/sonnet/licenses
+    echo $'SERVER sonnet.mc2.chalmers.se ANY 27720\nUSE_SERVER' > sonnet.lic
+
+%environment
+    export SONNET_DIR=/opt/sonnet
+    PATH=${PATH}:${SONNET_DIR}/bin
+

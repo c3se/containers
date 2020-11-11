@@ -1,0 +1,18 @@
+Bootstrap: docker
+From: centos
+
+%files
+    epel7.repo /etc/yum.repos.d/
+
+%post
+    yum install -y gcc-c++ make wget git gcc python36 python36-pip python36-devel openssl-devel
+#    pip3.6 install qiskit qiskit-aer qiskit-aqua qiskit-terra qiskit-chemistry
+    wget https://cmake.org/files/v3.6/cmake-3.6.2.tar.gz
+    tar -zxvf cmake-3.6.2.tar.gz
+    cd cmake-3.6.2
+    ./bootstrap --prefix=/usr/local
+    make && make install
+    cd ..
+    git clone https://github.com/Qiskit/qiskit-aer.git
+    mkdir qiskit-aer/out && cd qiskit-aer && pip3.6 install -U -r requirements-dev.txt
+    cd out && cmake .. && cmake --build . --config Release -- -j4

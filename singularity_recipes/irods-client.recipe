@@ -1,0 +1,11 @@
+Bootstrap: docker
+From: centos
+
+%help
+Centos 7 image for use at C3SE
+
+%post
+    yum -y install wget epel-release
+    rpm --import https://packages.irods.org/irods-signing-key.asc
+    wget -qO - https://packages.irods.org/renci-irods.yum.repo | tee /etc/yum.repos.d/renci-irods.yum.repo
+    yum -y install irods-icommands

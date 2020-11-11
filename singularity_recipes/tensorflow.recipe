@@ -1,0 +1,2 @@
+Bootstrap: docker
+From: tensorflow/tensorflow:latest-py3

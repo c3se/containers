@@ -1,0 +1,35 @@
+Bootstrap: docker
+From: centos
+
+%files
+    /apps/Singularity/VirtualGL.repo /etc/yum.repos.d/
+    /apps/eb_sources/f/FINE-Marine/install_finemarine_7.2-1_LINUX.tar /opt/finemarine.tar
+
+%post
+    yum install -y VirtualGL mesa-dri-drivers
+    yum install -y libSM libXt libpng libicu libxcb libXrender fontconfig mesa-libGLU libXi libxkbcommon libgnomeui
+    yum install -y xlsfonts xorg-x11-fonts-100dpi xorg-x11-fonts-75dpi xorg-x11-server-utils which
+
+    cd /opt
+    tar xf finemarine.tar
+    rm -f finemarine.tar
+    sed -i "/more \${lic_dir}\/license_agreement/d" ./install_numeca
+    ./install_numeca
+    yes
+    no
+    no
+
+    yes
+    rm -f COMMON.tgz finemarine*.tgz install_numeca license_agreement
+
+    echo "SERVER numeca-sspa.lic.chalmers.se 27290" > /usr/numeca/COMMON/license.dat
+    echo "SERVER numeca-sspa.lic.chalmers.se 27270" >> /usr/numeca/COMMON/license.dat
+    echo "USE_SERVER" >> /usr/numeca/COMMON/license.dat
+
+%environment
+    export NUMECA_DIR=/usr/numeca/finemarine72_1
+    export NUMECA_BIN=${NUMECA_DIR}/LINUX
+    export NI_VERSIONS_DIR=/usr/numeca
+    export PVM_ROOT=${NI_VERSIONS_DIR}/_pvm
+    PATH=${NUMECA_BIN}:${PATH}
+

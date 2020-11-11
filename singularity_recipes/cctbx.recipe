@@ -1,0 +1,20 @@
+Bootstrap: docker
+From: conda/miniconda2-centos6
+
+%post
+    conda install -y pandas future
+    yum -y install wget python-argparse
+    wget http://cci.lbl.gov/cctbx_build/dev-1723/cctbx-installer-dev-1723-intel-linux-2.6-x86_64-centos6.tar.gz
+    mkdir -p /temp
+    tar xf cctbx-installer-dev-1723-intel-linux-2.6-x86_64-centos6.tar.gz -C temp && cd temp && cd *
+    mkdir /opt/cctbx
+    ./install --prefix=/opt/cctbx
+    cd
+    rm -rf /temp
+
+
+%environment
+    export LD_LIBRARY_PATH=/opt/cctbx/cctbx-dev-1723/build/lib/:$LD_LIBRARY_PATH
+    export PYTHONPATH=/opt/cctbx/cctbx-dev-1723/modules/cctbx_project/:/opt/cctbx/cctbx-dev-1723/build/lib/:$PYTHONPATH
+    . /opt/cctbx/cctbx-dev-1723/cctbxenv.sh
+    libtbx.setpaths_all

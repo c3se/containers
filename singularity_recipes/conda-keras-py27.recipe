@@ -1,0 +1,5 @@
+Bootstrap: docker
+From: continuumio/miniconda3
+
+%post
+    /opt/conda/bin/conda install -y tensorflow=1.12.0=gpu_py27h956c076_0 keras pandas pil

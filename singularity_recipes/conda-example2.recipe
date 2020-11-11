@@ -1,0 +1,8 @@
+Bootstrap: docker
+From: continuumio/miniconda3
+
+%files
+    requirements.txt
+
+%post
+    /opt/conda/bin/conda install -y --file requirements.txt

@@ -1,0 +1,18 @@
+Bootstrap: docker
+From: centos:centos7.5.1804
+
+%files
+    VirtualGL.repo /etc/yum.repos.d/
+    visit3_0_2.linux-x86_64-rhel7.tar.gz
+
+%post
+    tar -C /opt -xf visit3_0_2.linux-x86_64-rhel7.tar.gz
+    rm visit3_0_2.linux-x86_64-rhel7.tar.gz
+
+    yum install -y VirtualGL glx-utils xcb-util-keysyms
+    yum install -y libX11 libXrender libXext libxcb libXau libXi libXt harfbuzz libicu fontconfig xkeyboard-config libSM libICE libglvnd mesa-libGLU libpng libstdc++ libgcc
+    yum install -y make gcc openmpi3-devel
+
+%environment
+    PATH=:/opt/visit3_0_2.linux-x86_64/bin:${PATH}
+    

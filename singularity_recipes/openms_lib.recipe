@@ -1,0 +1,6 @@
+Bootstrap: docker
+From: hroest/openms-lib-2.2
+
+%post
+    cd /openms-build
+    make -j 8 install

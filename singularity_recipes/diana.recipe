@@ -1,0 +1,45 @@
+Bootstrap: docker
+From: centos
+
+%files
+    VirtualGL.repo /etc/yum.repos.d/
+    dianaLinux-10.3.tar.gz
+    pcre2-utf16-10.23-2.el7.x86_64.rpm
+
+%post
+    yum install -y pcre2-utf16-10.23-2.el7.x86_64.rpm
+    yum install -y VirtualGL
+    yum install -y mesa-dri-drivers glibc-devel libseccomp
+    yum install -y libSM libXt libpng libicu libxcb libXrender fontconfig mesa-libGLU libXi libxkbcommon libgnomeui pcre
+    mkdir -p /opt/diana
+    tar xf dianaLinux-10.3.tar.gz -C /opt/diana
+    rm dianaLinux-10.3.tar.gz
+
+%environment
+    DIAPATH=/opt/diana
+    OSTYPE=UNIX
+    BINSEG=${DIAPATH}/binseg
+    DIASHARE=${DIAPATH}/share
+    SEGPATH="${BINSEG}"
+    DIABIN=${DIAPATH}/bin
+    DIASCRIPT=${DIASHARE}/script
+    DIALIB=${DIAPATH}/lib
+    DIASLIB=${DIASHARE}/lib
+    FGVKEY=${DIASLIB}
+    FG_PRE_INT=DIANA
+    FG_PRE_EXT=.dat
+    FEMSYS_INIT=${DIASLIB}/femsys.ini
+    FV_OEM_LOGO=${DIASHARE}/lib/diana.xbm
+    FGV_HTMLDOC=${DIASHARE}/Man/HTML
+    FGV_PROPLABELS=${DIASLIB}
+    IENV=terminal
+    #FOR5=`tty`
+    #FOR6=`tty`
+    DOC=${DIASHARE}/doc
+    TREE=${DIASHARE}/Tree
+    DIAERRPATH=${DIASHARE}/src
+
+    PATH=:${DIABIN}:${DIASCRIPT}:${PATH}
+    LD_LIBRARY_PATH="${DIALIB}"${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH}
+    export DIAPATH OSTYPE BINSEG DIASHARE SEGPATH DIABIN DIASCRIPT DIALIB DIASLIB FGVKEY FG_PRE_INT FG_PRE_EXT FEMSYS FV_OEM_LOGO FGV_HTMLDOC FGV_PROPLABELS IENV DOC TREE DIAERRPATH
+

@@ -1,0 +1,8 @@
+Bootstrap: docker
+From: centos
+
+%post
+    yum -y install epel-release
+    yum -y install R udunits2-devel gdal-devel
+    Rscript -e 'install.packages("rgdal", repos="https://cran.rstudio.com")'
+    Rscript -e 'install.packages("sf", repos="https://cran.rstudio.com")'

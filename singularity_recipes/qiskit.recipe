@@ -1,0 +1,10 @@
+Bootstrap: docker
+From: centos
+
+%files
+    epel7.repo /etc/yum.repos.d/
+
+%post
+    yum install -y gcc python36 python36-pip python36-devel openssl-devel
+    pip3.6 install qiskit qiskit-aer qiskit-aqua qiskit-terra qiskit-chemistry
+

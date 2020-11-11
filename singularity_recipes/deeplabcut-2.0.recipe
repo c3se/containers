@@ -1,0 +1,18 @@
+Bootstrap: docker
+From: bethgelab/deeplearning:cuda9.0-cudnn7
+
+%post
+    add-apt-repository ppa:deadsnakes/ppa #ADDS NEW REPO
+    add-apt-repository --remove ppa:jonathonf/python-3.6 #REMOVES BROKEN REPO
+    apt-get update
+    apt-get -y install ffmpeg
+
+    pip3 install --upgrade pip
+    pip3 install tensorflow-gpu==1.8
+    pip3 install deeplabcut
+    pip3 install ipywidgets
+    pip3 install ipywidgets
+    pip3 install seaborn
+
+#%runscript
+#    exec "$@"

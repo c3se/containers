@@ -1,0 +1,9 @@
+Bootstrap: docker
+From: ubuntu:19.10
+
+%post
+    apt-get update
+    apt-get -y install libstdc++6 libpng16-16 libtinfo5
+    # xstata deps:
+    apt-get -y install libgtk2.0-0 libpangocairo-1.0-0 libcairo2 libgdk-pixbuf2.0-0 libpango-1.0-0 libglib2.0-0 libfontconfig1 language-pack-en
+
