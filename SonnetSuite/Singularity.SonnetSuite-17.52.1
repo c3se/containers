@@ -18,6 +18,9 @@ From: centos:7
     rm -r sonnetsoftware
     cd /opt/sonnet/licenses
     echo $'SERVER sonnet.mc2.chalmers.se ANY 27720\nUSE_SERVER' > sonnet.lic
+    
+    # Make image writable with overlays
+    chmod a+rw -R /
 
 %environment
     export SONNET_DIR=/opt/sonnet

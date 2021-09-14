@@ -1,5 +1,0 @@
-Bootstrap: docker
-From: continuumio/miniconda3
-
-%post
-    /opt/conda/bin/conda install -y keras pandas

@@ -15,6 +15,9 @@ From: centos
     tar xf dianaLinux-10.3.tar.gz -C /opt/diana
     rm dianaLinux-10.3.tar.gz
 
+    # Make image writable with overlays
+    chmod a+rw -R /
+
 %environment
     DIAPATH=/opt/diana
     OSTYPE=UNIX

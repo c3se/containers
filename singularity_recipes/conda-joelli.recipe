@@ -1,5 +1,0 @@
-Bootstrap: docker
-From: continuumio/miniconda3
-
-%post
-    /opt/conda/bin/conda install -y tensorflow=1.12.0=gpu_py36he74679b_0 keras

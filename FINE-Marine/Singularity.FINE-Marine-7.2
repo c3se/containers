@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: centos
+From: centos:7
 
 %files
     /apps/Singularity/VirtualGL.repo /etc/yum.repos.d/
@@ -25,6 +25,9 @@ From: centos
     echo "SERVER numeca-sspa.lic.chalmers.se 27290" > /usr/numeca/COMMON/license.dat
     echo "SERVER numeca-sspa.lic.chalmers.se 27270" >> /usr/numeca/COMMON/license.dat
     echo "USE_SERVER" >> /usr/numeca/COMMON/license.dat
+
+    # Make image writable with overlays
+    chmod a+rw -R /
 
 %environment
     export NUMECA_DIR=/usr/numeca/finemarine72_1

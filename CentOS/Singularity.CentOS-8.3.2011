@@ -1,0 +1,9 @@
+Bootstrap: docker
+From: centos:8.3.2011
+
+%help
+    Minimal Centos 8.3.2011 image from dockerhub
+
+%post
+    # Make image writable with overlays
+    chmod a+rw -R /

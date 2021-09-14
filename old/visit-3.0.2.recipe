@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: centos:centos7.5.1804
+From: centos:7.5.1804
 
 %files
     VirtualGL.repo /etc/yum.repos.d/

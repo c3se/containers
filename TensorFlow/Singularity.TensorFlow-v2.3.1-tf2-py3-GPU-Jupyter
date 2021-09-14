@@ -1,2 +1,6 @@
 bootstrap: docker
 from: tensorflow/tensorflow:latest-gpu-jupyter
+
+%post
+    # Make image writable with overlays
+    chmod a+rw -R /

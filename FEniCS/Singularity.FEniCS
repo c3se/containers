@@ -1,23 +1,21 @@
 Bootstrap: docker
 From: continuumio/miniconda3
 
-%files
-requirements.txt
+%help
+    "A container image of the FEniCS project."
 
+%files
+    requirements.txt
 
 %post
-/opt/conda/bin/conda config --add channels bioconda
-/opt/conda/bin/conda config --add channels anaconda
-/opt/conda/bin/conda config --add channels tensorly
-/opt/conda/bin/conda config --add channels pytorch
-/opt/conda/bin/conda config --add channels conda-forge
+    /opt/conda/bin/conda config --add channels bioconda
+    /opt/conda/bin/conda config --add channels anaconda
+    /opt/conda/bin/conda config --add channels tensorly
+    /opt/conda/bin/conda config --add channels pytorch
+    /opt/conda/bin/conda config --add channels conda-forge
 
-/opt/conda/bin/conda update --all
-/opt/conda/bin/conda install --yes --file requirements.txt
+    /opt/conda/bin/conda update --all
+    /opt/conda/bin/conda install --yes --file requirements.txt
 
-
-%help
-"A container image of the FEniCS project."
-
-%runscript
-exec "$@"
+    # Make image writable with overlays
+    chmod a+rw -R /

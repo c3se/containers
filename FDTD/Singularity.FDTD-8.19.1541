@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: centos
+From: centos:7
 
 %files
     FDTD-8.19.1541-1.el6.x86_64.rpm
@@ -8,6 +8,9 @@ From: centos
 %post
     yum update -y VirtualGL
     yum update -y FDTD-8.19.1541-1.el6.x86_64.rpm
+
+    # Make image writable with overlays
+    chmod a+rw -R /
 
 %environment
     PATH=/usr/sbin:/usr/bin:/sbin:/bin:/opt/lumerical/fdtd/bin
