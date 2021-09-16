@@ -3,4 +3,4 @@ from: nvcr.io/nvidia/namd:3.0-alpha3-multinode
 
 %post
     # Make image writable with overlays
-    chmod a+rw -R /boot /bin /sbin /lib /lib64 /usr /etc /var /opt
+    chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :

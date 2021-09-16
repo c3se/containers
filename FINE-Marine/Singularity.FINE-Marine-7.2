@@ -27,7 +27,7 @@ From: centos:7
     echo "USE_SERVER" >> /usr/numeca/COMMON/license.dat
 
     # Make image writable with overlays
-    chmod a+rw -R /boot /bin /sbin /lib /lib64 /usr /etc /var /opt
+    chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
 
 %environment
     export NUMECA_DIR=/usr/numeca/finemarine72_1

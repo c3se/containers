@@ -1,9 +1,9 @@
 Bootstrap: docker
-From: ubuntu:bionic-20210827
+From: ubuntu:focal-20210827
 
 %help
     Minimal Ubuntu image from dockerhub
 
 %post
     # Make image writable with overlays
-    chmod a+rw -R /boot /bin /sbin /lib /lib64 /usr /etc /var /opt
+    chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
