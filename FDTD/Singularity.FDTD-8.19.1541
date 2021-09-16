@@ -10,7 +10,7 @@ From: centos:7
     yum update -y FDTD-8.19.1541-1.el6.x86_64.rpm
 
     # Make image writable with overlays
-    chmod a+rw -R /
+    chmod a+rw -R /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt
 
 %environment
     PATH=/usr/sbin:/usr/bin:/sbin:/bin:/opt/lumerical/fdtd/bin

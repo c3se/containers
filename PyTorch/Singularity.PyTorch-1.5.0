@@ -1,6 +1,0 @@
-bootstrap: docker
-from: nvcr.io/nvidia/pytorch:20.03-py3
-
-%post
-    # Make image writable with overlays
-    chmod a+rw -R /

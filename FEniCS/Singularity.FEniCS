@@ -18,4 +18,4 @@ From: continuumio/miniconda3
     /opt/conda/bin/conda install --yes --file requirements.txt
 
     # Make image writable with overlays
-    chmod a+rw -R /
+    chmod a+rw -R /boot /bin /sbin /lib /lib64 /usr /etc /var /opt

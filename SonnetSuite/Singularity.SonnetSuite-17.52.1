@@ -20,7 +20,7 @@ From: centos:7
     echo $'SERVER sonnet.mc2.chalmers.se ANY 27720\nUSE_SERVER' > sonnet.lic
     
     # Make image writable with overlays
-    chmod a+rw -R /
+    chmod a+rw -R /boot /bin /sbin /lib /lib64 /usr /etc /var /opt
 
 %environment
     export SONNET_DIR=/opt/sonnet

@@ -1,8 +1,5 @@
-Bootstrap: docker
-From: centos:8.3.2011
-
-%help
-    Minimal Centos image from dockerhub
+bootstrap: docker
+from: nvcr.io/nvidia/relion:3.1.2
 
 %post
     # Make image writable with overlays

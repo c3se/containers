@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: centos
+From: centos:7
 
 %files
     VirtualGL.repo /etc/yum.repos.d/
@@ -16,7 +16,7 @@ From: centos
     rm dianaLinux-10.3.tar.gz
 
     # Make image writable with overlays
-    chmod a+rw -R /
+    chmod a+rw -R /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt
 
 %environment
     DIAPATH=/opt/diana
