@@ -1,5 +1,5 @@
 bootstrap: docker
-from: nvcr.io/nvidia/relion:3.1.2
+from: nvcr.io/hpc/relion:3.1.2
 
 %post
     # Make image writable with overlays

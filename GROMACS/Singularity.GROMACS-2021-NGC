@@ -1,5 +1,5 @@
 bootstrap: docker
-from: nvcr.io/nvidia/gromacs:2021
+from: nvcr.io/hpc/gromacs:2021
 
 %post
     # Make image writable with overlays

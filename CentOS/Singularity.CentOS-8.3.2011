@@ -6,7 +6,4 @@ From: centos:8.3.2011
 
 %post
     # Make image writable with overlays
-    yum install -y sudo
-    yum clean all
-    echo "%users  ALL=(ALL)       ALL" > /etc/sudoers
     chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :

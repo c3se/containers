@@ -1,5 +1,5 @@
 bootstrap: docker
-from: nvcr.io/nvidia/namd:3.0-alpha3-multinode
+from: nvcr.io/hpc/namd:3.0-alpha3-multinode
 
 %post
     # Make image writable with overlays
