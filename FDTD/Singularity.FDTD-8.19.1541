@@ -2,10 +2,10 @@ Bootstrap: docker
 From: centos:7
 
 %files
-    FDTD-8.19.1541-1.el6.x86_64.rpm
-    VirtualGL.repo /etc/yum.repos.d/
+    /apps/eb_sources/FDTD/FDTD-8.19.1541-1.el6.x86_64.rpm
 
 %post
+    curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
     yum update -y VirtualGL
     yum update -y FDTD-8.19.1541-1.el6.x86_64.rpm
 

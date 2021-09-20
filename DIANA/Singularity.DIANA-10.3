@@ -2,11 +2,11 @@ Bootstrap: docker
 From: centos:7
 
 %files
-    VirtualGL.repo /etc/yum.repos.d/
-    dianaLinux-10.3.tar.gz
-    pcre2-utf16-10.23-2.el7.x86_64.rpm
+    /apps/eb_sources/d/DIANA/dianaLinux-10.3.tar.gz
 
 %post
+    curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
+    curl http://mirror.centos.org/centos/7/os/x86_64/Packages/pcre2-utf16-10.23-2.el7.x86_64.rpm -o pcre2-utf16-10.23-2.el7.x86_64.rpm
     yum install -y pcre2-utf16-10.23-2.el7.x86_64.rpm
     yum install -y VirtualGL
     yum install -y mesa-dri-drivers glibc-devel libseccomp

@@ -2,10 +2,10 @@ Bootstrap: docker
 From: centos:7
 
 %files
-    VirtualGL.repo /etc/yum.repos.d/
     /apps/eb_sources/a/ANSA/BETA_CAE_Systems_v20.1.0_linux_x64.sh /opt
 
 %post
+    curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
     yum -y install VirtualGL libXft libXcursor libXrandr libXinerama libSM libXt
     sh /opt/BETA_CAE_Systems_v20.1.0_linux_x64.sh --meta-install-abaqus --prefix=/opt --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
     rm /opt/BETA_CAE_Systems_v20.1.0_linux_x64.sh

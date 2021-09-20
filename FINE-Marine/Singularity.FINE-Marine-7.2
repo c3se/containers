@@ -2,10 +2,10 @@ Bootstrap: docker
 From: centos:7
 
 %files
-    /apps/Singularity/VirtualGL.repo /etc/yum.repos.d/
     /apps/eb_sources/f/FINE-Marine/install_finemarine_7.2-1_LINUX.tar /opt/finemarine.tar
 
 %post
+    curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
     yum install -y VirtualGL mesa-dri-drivers
     yum install -y libSM libXt libpng libicu libxcb libXrender fontconfig mesa-libGLU libXi libxkbcommon libgnomeui
     yum install -y xlsfonts xorg-x11-fonts-100dpi xorg-x11-fonts-75dpi xorg-x11-server-utils which
