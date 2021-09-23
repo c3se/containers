@@ -1,3 +1,5 @@
 *.sif
 *.simg
 *.img
+
+.cache/
