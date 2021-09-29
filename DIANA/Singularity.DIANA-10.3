@@ -2,7 +2,7 @@ Bootstrap: docker
 From: centos:7
 
 %files
-    /apps/eb_sources/d/DIANA/dianaLinux-10.3.tar.gz
+    /apps/eb_sources/d/DIANA/dianaLinux-10.3.tar.gz .
 
 %post
     curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
