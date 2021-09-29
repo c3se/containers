@@ -1,0 +1,6 @@
+bootstrap: docker
+from: tensorflow/tensorflow:2.4.3-gpu-jupyter
+
+%post
+    # Make image writable with overlays
+    chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
