@@ -1,0 +1,6 @@
+bootstrap: docker
+from: pytorch/pytorch:1.8.1-cuda10.2-cudnn7-devel
+
+%post
+    # Make image writable with overlays
+    chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
