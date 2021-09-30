@@ -13,13 +13,28 @@ From: centos:7
     cd /opt
     tar xf finemarine.tar
     rm -f finemarine.tar
-    sed -i "/more \${lic_dir}\/license_agreement/d" ./install_numeca
-    ./install_numeca
-    yes
-    no
-    no
 
-    yes
+    sed -i "/more \${lic_dir}\/license_agreement/d" ./install_numeca
+    sed -i '/^askyn "Do you accept the license agreement \[yes\/no\]"$/{
+        n
+        s/X\${YES_NO}/"Xyes"/
+    }' ./install_numeca
+    sed -i '/^\s\+askyn ".*apt-get install.* \[yes\/no\]"$/{
+        n
+        s/X\${YES_NO}/"Xno"/
+    }' ./install_numeca
+    sed -i '/^\s\+askyn ".*yum install.* \[yes\/no\]"$/{
+        n
+        s/X\${YES_NO}/"Xyes"/
+    }' ./install_numeca
+    sed -i '/^askyn ".*continue the installation.* \[yes\/no\] ? "$/{
+        n
+        n
+        s/\$YES_NO/"Xyes"/
+    }' ./install_numeca
+    sed -i 's/askyn "/echo "/' ./install_numeca
+    ./install_numeca
+
     rm -f COMMON.tgz finemarine*.tgz install_numeca license_agreement
 
     echo "SERVER numeca-sspa.lic.chalmers.se 27290" > /usr/numeca/COMMON/license.dat
