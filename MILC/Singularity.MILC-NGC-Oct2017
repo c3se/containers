@@ -1,0 +1,5 @@
+Bootstrap: docker
+From: nvcr.io/hpc/milc:cuda9-ubuntu1604-quda0.8-mpi3.0.0-patch4Oct2017-sm70
+
+%post
+    chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
