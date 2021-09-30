@@ -11,9 +11,9 @@ From: centos:7
     rm sonnetsuite.17.52.1.linux64.tar
     cd sonnetsoftware
     mkdir -p /opt/sonnet
+    sed -i 's|read INSTALL_DIRECTORY|INSTALL_DIRECTORY=/opt/sonnet|' ./sonnetinstall
+    sed -i 's|askyesno \$ANS .*copying the files|ANS=yes| ./sonnetinstall
     bash ./sonnetinstall -skiplicense
-    /opt/sonnet
-    yes
     cd ..
     rm -r sonnetsoftware
     cd /opt/sonnet/licenses
