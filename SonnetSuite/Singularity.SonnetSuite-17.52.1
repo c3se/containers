@@ -12,7 +12,7 @@ From: centos:7
     cd sonnetsoftware
     mkdir -p /opt/sonnet
     sed -i 's|read INSTALL_DIRECTORY|INSTALL_DIRECTORY=/opt/sonnet|' ./sonnetinstall
-    sed -i 's|askyesno \$ANS .*copying the files|ANS=yes|' ./sonnetinstall
+    sed -i 's|askyesno \$ANS .*copying the files.*$|ANS=yes|' ./sonnetinstall
     bash ./sonnetinstall -skiplicense
     cd ..
     rm -r sonnetsoftware
