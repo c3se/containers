@@ -2,7 +2,7 @@ Bootstrap: docker
 From: centos:7
 
 %files
-    /apps/eb_sources/d/DIANA/dianaLinux-10.5.tar.gz .
+    dianaLinux-10.5.tar.gz .
 
 %post
     curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
@@ -13,6 +13,8 @@ From: centos:7
     yum install -y libSM libXt libpng libicu libxcb libXrender fontconfig mesa-libGLU libXi libxkbcommon libgnomeui pcre
     yum install libXScrnSaver-1.2.2-6.1.el7.x86_64 pciutils-libs-3.5.1-3.el7.x86_64 -y
     yum install libxkbcommon libxkbcommon-x11 -y
+    yum install libxcbutil-iccm libxcb-devel xcb-util xcb-util-devel mesa-libGL-devel libxkbcommon-devel -y
+    yum install xcb-util-image-devel xcb-util-keysyms-devel xcb-util-renderutil-devel xcb-util-wm-devel mesa-libGL-devel -y
     mkdir -p /opt/diana
     tar xf dianaLinux-10.5.tar.gz -C /opt/diana
     rm dianaLinux-10.5.tar.gz
