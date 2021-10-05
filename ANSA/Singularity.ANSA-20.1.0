@@ -2,7 +2,7 @@ Bootstrap: docker
 From: centos:7
 
 %files
-    /apps/eb_sources/a/ANSA/BETA_CAE_Systems_v20.1.0_linux_x64.sh /opt
+    /apps/sources/a/ANSA/BETA_CAE_Systems_v20.1.0_linux_x64.sh /opt
 
 %post
     curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
