@@ -23,6 +23,7 @@ python spam_virt_env/bin/spam-mmr-graphical
     apt -y upgrade
     DEBIAN_FRONTEND=noninteractive apt install -y git python3-dev python3-virtualenv python3-tk gcc g++ libeigen3-dev r-base libicu-dev libgmp-dev libmpfr-dev libcgal-dev gmsh libfreetype6-dev libxml2-dev libxslt-dev
 
+    apt install -y python3-pip
     pip3 install -U spam setuptools
     pip3 install -U numpy scikit-image
     pip3 install spam
