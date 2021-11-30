@@ -1,0 +1,12 @@
+bootstrap: docker
+from: nvcr.io/nvidia/pytorch:21.11-py3
+
+%post
+    # Make image writable with overlays
+    chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
+
+    # Make sure to use the correct jupyter config
+    if [ -d /opt/conda/etc/jupyter ]; then
+        rm -f /opt/conda/etc/jupyter/jupyter_notebook_config.py
+        rm -f /opt/conda/etc/jupyter/jupyter_notebook_config.json
+    fi
