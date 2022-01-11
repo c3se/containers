@@ -10,7 +10,7 @@ From: centos:7
     curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
     yum -y install VirtualGL libXft libXcursor libXrandr libXinerama libSM libXt
     sh /opt/BETA_CAE_Systems_v22.1.0_linux_x64.sh --meta-install-abaqus --prefix=/opt --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
-    sh /opt/BETA_CAE_Systems_v22.1.0_retomo_linux_x64.sh --meta-install-abaqus --prefix=/opt --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
+    sh /opt/BETA_CAE_Systems_retomo_v22.1.0_linux_x64.sh --meta-install-abaqus --prefix=/opt --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
     sh /opt/BETA_CAE_Systems_meta_post_external_libs_v22.1.0_linux_x64.sh --meta-install-abaqus --prefix=/opt --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
     rm /opt/BETA_CAE_Systems_v22.1.0_linux_x64.sh
     rm /opt/BETA_CAE_Systems_retomo_v22.1.0_linux_x64.sh
