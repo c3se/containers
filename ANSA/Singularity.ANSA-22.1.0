@@ -8,7 +8,7 @@ From: centos:7
 
 %post
     curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
-    yum -y install VirtualGL libXft libXcursor libXrandr libXinerama libSM libXt xorg-x11-server-utils
+    yum -y install VirtualGL libXft libXcursor libXrandr libXinerama libSM libXt xorg-x11-server-utils mesa-dri-drivers
 
     sh /opt/BETA_CAE_Systems_v22.1.0_linux_x64.sh --meta-install-abaqus --prefix=/opt --exclude-subdir --skip-license --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
     rm /opt/BETA_CAE_Systems_v22.1.0_linux_x64.sh
@@ -23,4 +23,4 @@ From: centos:7
     chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
 
 %environment
-    PATH=/opt/ansa_v22.1.0/:/opt/meta_post_v22.1.0/:/opt/shared_v22.1.0/bin/:$PATH
+    PATH=/opt/ansa_v22.1.0/:/opt/meta_post_v22.1.0/:/opt/retomo_v22.1.0:/opt/shared_v22.1.0/bin/:$PATH
