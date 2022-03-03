@@ -32,3 +32,5 @@ from: rstudio/r-base:4.1.2-focal
     # Make image writable with overlays
     chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
 
+%environment
+    PATH=/usr/lib/rstudio-server/bin:${PATH}
