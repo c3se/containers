@@ -5,7 +5,8 @@ From: centos:7
     /apps/sources/s/Sonnet/sonnetsuite.17.52.1.linux64.tar .
 
 %post
-    yum install -y glibc freetype fontconfig zlib libdrm qt5-qtbase
+    yum install -y glibc freetype fontconfig zlib libdrm qt5-qtbase \
+        libxcb mesa-libGLU xorg-x11-server-Xorg xorg-x11-xauth xorg-x11-apps
 
     tar xf sonnetsuite.17.52.1.linux64.tar
     rm sonnetsuite.17.52.1.linux64.tar
