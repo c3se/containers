@@ -1,18 +1,16 @@
-Bootstrap: docker
-From: pytorch/pytorch:1.11.0-cuda11.3-cudnn8-devel
+Bootstrap: localimage
+From: R-4.1.3-Torch-1.11.0.sif
+
+%environment
+    export LD_LIBRARY_PATH=/opt/conda/lib
 
 %post
 
-    apt-get update -y
-
-    # Install R and packages
-    conda update -n base -c defaults conda
-    conda install -c conda-forge r-base=4.1.3
-    R --slave -e '
-        install.packages("torch", repos="https://ftp.acc.umu.se/mirror/CRAN/")
-        library(torch)
-        install_torch(type="11.3")
-    '
+    # Download and install RStudio Server
+    mkdir -p /workspace && cd /workspace
+    wget -q "https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2022.02.0-443-amd64.deb"
+    apt install -y ./rstudio-*-amd64.deb
+    rm rstudio-*-amd64.deb
 
     # Make image writable with overlays
     chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
