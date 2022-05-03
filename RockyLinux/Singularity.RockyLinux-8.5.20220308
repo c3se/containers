@@ -1,0 +1,9 @@
+Bootstrap: docker
+From: rockylinux:8.5.20220308
+
+%help
+    Minimal Rocky Linux image from dockerhub
+
+%post
+    # Make image writable with overlays
+    chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
