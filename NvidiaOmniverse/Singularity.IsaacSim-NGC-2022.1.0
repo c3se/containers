@@ -1,0 +1,6 @@
+bootstrap: docker
+from: nvcr.io/nvidia/isaac-sim:2022.1.0
+
+%post
+    # Make image writable with overlays
+    chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
