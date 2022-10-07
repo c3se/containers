@@ -1,3 +1,4 @@
 # Match singularity recipes
+*.def linguist-language=Apptainer
 Singularity.* linguist-language=Singularity
 *.recipe linguist-language=Singularity
