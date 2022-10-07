@@ -1,0 +1,9 @@
+bootstrap: docker
+from: nvcr.io/nvidia/pytorch:22.09-py3
+
+%post
+    # Make sure to use the correct jupyter config
+    if [ -d /opt/conda/etc/jupyter ]; then
+        rm -f /opt/conda/etc/jupyter/jupyter_notebook_config.py
+        rm -f /opt/conda/etc/jupyter/jupyter_notebook_config.json
+    fi
