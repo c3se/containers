@@ -1,0 +1,2 @@
+Bootstrap: docker
+From: continuumio/anaconda3:2022.05
