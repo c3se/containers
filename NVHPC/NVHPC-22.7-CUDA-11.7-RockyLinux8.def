@@ -1,0 +1,2 @@
+bootstrap: docker
+from: nvcr.io/nvidia/nvhpc:22.7-devel-cuda11.7-rockylinux8
