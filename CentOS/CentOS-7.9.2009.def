@@ -1,0 +1,5 @@
+Bootstrap: docker
+From: centos:7.9.2009
+
+%help
+    Minimal Centos image from dockerhub
