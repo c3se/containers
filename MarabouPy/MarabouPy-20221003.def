@@ -1,0 +1,31 @@
+Bootstrap: localimage
+From: /apps/containers/TensorFlow/TensorFlow-2.9.1-NGC-22.09.sif
+
+%environment
+    export PYTHONPATH=$PYTHONPATH:/opt/Marabou
+
+%post
+    mkdir -p /opt
+    cd /opt
+
+    # Install missing dependencies
+    apt-get -y install \
+        libboost-program-options-dev \
+        libboost-chrono-dev \
+        libboost-timer-dev \
+        libboost-thread-dev
+
+    # Fetch source
+    local_commit=fb7b9f08007b07d44c6e9e78be26f5c9afcadd3a
+    wget https://github.com/NeuralNetworkVerification/Marabou/archive/${local_commit}.zip
+    unzip -q ${local_commit}.zip
+    rm ${local_commit}.zip
+
+    # Build
+    mv Marabou-$local_commit Marabou
+    cd Marabou
+    mkdir build 
+    cd build
+    cmake .. -DBUILD_PYTHON=ON
+    cmake --build .
+
