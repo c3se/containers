@@ -1,0 +1,24 @@
+Bootstrap: docker
+From: rockylinux:8.5.20220308
+
+%help
+    Per-user service for the Alvis Dataset Downloader (adds)
+
+%files
+    /apps/sources/a/adds/adds-88d65b200233a12dce19d1f1fcbe5ff4cbef8a97.tar.gz /
+
+%post
+    # Install dependencies
+    dnf install -y dnf-plugins-core
+    dnf install -y epel-release
+    dnf config-manager --set-enabled powertools
+    dnf install -y \
+        perl-JSON \
+        perl-JSON-XS \
+        perl-LWP-Protocol-https \
+        perl-URI perl-File-Temp \
+	git
+
+    # Extract pre-downloadd adds tarball from central sources
+    mkdir -p /opt/adds
+    tar --strip-components=1 -C /opt/adds -xf /adds-88d65b200233a12dce19d1f1fcbe5ff4cbef8a97.tar.gz
