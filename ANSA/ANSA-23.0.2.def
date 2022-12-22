@@ -10,17 +10,14 @@ From: centos:7
     curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
     yum -y install VirtualGL libXft libXcursor libXrandr libXinerama libSM libXt xorg-x11-server-utils mesa-dri-drivers
 
-    sh /opt/BETA_CAE_Systems_*.sh --meta-install-abaqus --prefix=/opt --exclude-subdir --skip-license --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
-    rm /opt/BETA_CAE_Systems_*.sh
+    sh /opt/BETA_CAE_Systems_v*.sh --meta-install-abaqus --prefix=/opt --exclude-subdir --skip-license --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
+    rm /opt/BETA_CAE_Systems_v*.sh
 
-    sh /opt/BETA_CAE_Systems_retomo_*.sh --meta-install-abaqus --prefix=/opt --exclude-subdir --skip-license --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
-    rm /opt/BETA_CAE_Systems_retomo_*.sh
+    sh /opt/BETA_CAE_Systems_retomo_v*.sh --meta-install-abaqus --prefix=/opt --exclude-subdir --skip-license --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
+    rm /opt/BETA_CAE_Systems_retomo_v*.sh
 
-    sh /opt/BETA_CAE_Systems_meta_post_external_libs_*.sh --meta-install-abaqus --prefix=/opt --exclude-subdir --skip-license --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
-    rm /opt/BETA_CAE_Systems_meta_post_external_libs_*.sh
-
-    # Make image writable with overlays
-    chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
+    sh /opt/BETA_CAE_Systems_meta_post_external_libs_v*.sh --meta-install-abaqus --prefix=/opt --exclude-subdir --skip-license --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
+    rm /opt/BETA_CAE_Systems_meta_post_external_libs_v*.sh
 
 %environment
     PATH=/opt/ansa_v23.0.2/:/opt/meta_post_v23.0.2/:/opt/retomo_v23.0.0:/opt/shared_v23.0.2/bin/:$PATH
