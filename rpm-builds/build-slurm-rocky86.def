@@ -1,0 +1,8 @@
+Bootstrap: localimage
+From: base-rpmbuild-rocky86.sif
+
+%post
+    yum install -y epel-release
+    yum upgrade -y
+    yum install -y zlib-devel munge-devel pam-devel perl-ExtUtils-MakeMaker python3 readline-devel mariadb-devel numactl-devel libevent-devel hwloc-devel lua-devel json-c-devel pam-devel libX11-devel libssh2-devel libyaml-devel libcurl-devel lz4-devel freeipmi-devel pmix pmix-devel
+    yum upgrade -y

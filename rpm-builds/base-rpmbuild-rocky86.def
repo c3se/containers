@@ -1,0 +1,17 @@
+Bootstrap: yum
+OSVersion: 8.6
+MirrorURL: https://dl.rockylinux.org/vault/rocky/%{OSVERSION}/BaseOS/x86_64/os/
+Include: yum
+
+%environment
+    export LC_ALL=C
+
+%files
+    /etc/yum.repos.d/c3se-repos.repo /etc/yum.repos.d
+
+%setup
+    sed -i 's/enabled=1/enabled=0/' ${SINGULARITY_ROOTFS}/etc/yum.repos.d/Rocky-*
+
+%post
+    yum install -y rpm-build automake autoconf libtool make pkg-config less vim flex bison doxygen cmake bash-doc which
+    yum upgrade -y
