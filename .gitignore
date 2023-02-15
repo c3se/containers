@@ -1,5 +1,5 @@
 *.sif
 *.simg
 *.img
-
+test/
 .cache/
