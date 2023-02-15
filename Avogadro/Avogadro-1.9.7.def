@@ -1,5 +1,5 @@
 Bootstrap: localimage
-From: ../RockyLinux/RockyLinux-8.6
+From: ../RockyLinux/RockyLinux-8.6.sif
 
 %post
     dnf install -y libX11 libXext
