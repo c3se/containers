@@ -4,9 +4,9 @@ From: ../RockyLinux/RockyLinux-8.6.sif
 %post
     dnf install -y libX11 libXext
     dnf clean all
-    curl -L https://github.com/OpenChemistry/avogadroapp/releases/download/1.97.0/Avogadro2-x86_64.AppImage --output /opt/Avogadro2-x86_64.AppImage
+    cd /opt
+    curl -L https://github.com/OpenChemistry/avogadroapp/releases/download/1.97.0/Avogadro2-x86_64.AppImage --output Avogadro2-x86_64.AppImage
     chmod a+x Avogadro2-x86_64.AppImage
-    chmod a+x *AppImage
     ./Avogadro2-x86_64.AppImage --appimage-extract
     mv squashfs-root avogadro
     rm Avogadro2-x86_64.AppImage
