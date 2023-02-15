@@ -1,10 +1,11 @@
 Bootstrap: localimage
-From: ../RockyLinux/RockyLinux-8.6.sif
+From: ../RockyLinux/RockyLinux-9.1.sif
 
 %post
     curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
-    dnf -y install VirtualGL libXft libXcursor libXrandr libXinerama libSM libXt xorg-x11-server-utils mesa-dri-drivers libX11 libXext fontconfig
-    dnf clean all
+    yum -y install VirtualGL libXft libXcursor libXrandr libXinerama libSM libXt xorg-x11-server-utils mesa-dri-drivers libX11 libXext fontconfig python3
+    yum update -y
+    yum clean all
     cd /opt
     curl -L https://github.com/OpenChemistry/avogadroapp/releases/download/1.97.0/Avogadro2-x86_64.AppImage --output Avogadro2-x86_64.AppImage
     chmod a+x Avogadro2-x86_64.AppImage
@@ -13,7 +14,10 @@ From: ../RockyLinux/RockyLinux-8.6.sif
     rm Avogadro2-x86_64.AppImage
 
 %environment
-    PATH=$PATH:/opt/avogadro/
+    export PATH=$PATH:/opt/avogadro/usr/bin
+    export LD_LIBRARY_PATH=/opt/avogadro/usr/lib
+    export BABEL_LIBDIR=/opt/avogadro/usr/lib/openbabel
+    export BABEL_DATADIR=/opt/avogadro/usr/share/openbabel/3.1.1
 
 %runscript
-    vglrun AppRun
+    vglrun avogadro2
