@@ -1,0 +1,10 @@
+Bootstrap: localimage
+From: ../RockyLinux/RockyLinux-8.6-minimal
+
+%post
+    mkdir /opt/
+    cd /opt/
+    wget https://github.com/OpenChemistry/avogadroapp/releases/download/1.97.0/Avogadro2-x86_64.AppImage
+
+%run
+    /opt/Avogadro2-x86_64.AppImage

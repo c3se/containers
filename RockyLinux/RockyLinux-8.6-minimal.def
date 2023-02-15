@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: rockylinux:8.5.20220308
+From: rockylinux:8.6-minimal
 
 %help
     Minimal Rocky Linux image from dockerhub
