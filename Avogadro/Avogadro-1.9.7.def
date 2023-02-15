@@ -2,7 +2,8 @@ Bootstrap: localimage
 From: ../RockyLinux/RockyLinux-8.6.sif
 
 %post
-    dnf install -y libX11 libXext
+    curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
+    dnf -y install VirtualGL libXft libXcursor libXrandr libXinerama libSM libXt xorg-x11-server-utils mesa-dri-drivers libX11 libXext fontconfig
     dnf clean all
     cd /opt
     curl -L https://github.com/OpenChemistry/avogadroapp/releases/download/1.97.0/Avogadro2-x86_64.AppImage --output Avogadro2-x86_64.AppImage
@@ -15,4 +16,4 @@ From: ../RockyLinux/RockyLinux-8.6.sif
     PATH=$PATH:/opt/avogadro/
 
 %runscript
-    AppRun
+    vglrun AppRun
