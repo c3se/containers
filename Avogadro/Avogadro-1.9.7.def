@@ -20,4 +20,4 @@ From: ../RockyLinux/RockyLinux-9.1.sif
     export BABEL_DATADIR=/opt/avogadro/usr/share/openbabel/3.1.1
 
 %runscript
-    vglrun avogadro2
+    vglrun avogadro2 $@

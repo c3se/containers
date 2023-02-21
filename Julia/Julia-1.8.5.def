@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: julia:1.6.2
+From: julia:1.8.5
 
 %post
     # Embed extra packages into container:
