@@ -1,0 +1,2 @@
+Bootstrap: docker
+From: nvcr.io/hpc/milc:quda1.1.0-November2022
