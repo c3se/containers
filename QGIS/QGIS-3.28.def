@@ -2,4 +2,4 @@ Bootstrap: docker
 From: qgis/qgis:release-3_28
 
 %runscript
-    qgis
+    qgis $@

@@ -17,4 +17,4 @@ From: /apps/containers/CentOS/CentOS-7.9.2009.sif
     yum clean all
 
 %runscript
-    vglrun VESTA
+    vglrun VESTA $@
