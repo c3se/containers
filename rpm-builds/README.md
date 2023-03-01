@@ -21,6 +21,6 @@ pdsh-mod-slurm:
 # Make suew the newly build slurm rpms are available in the c3se-repo before recreating the build-pdsh-... container
 cd $HOME/rpmbuild/SOURCES
 # Pull down the latest pdsh SRPM from EPEL
-apptainer exec --fakeroot /apps/containers/rpm-builds/build-pdsh-rocky86.sif rpmbuild --without rsh --without netgroup --without debug --without genders -rb pdsh-srpm/pdsh-2.34-5.el8.src.rpm
+apptainer exec /apps/containers/rpm-builds/build-pdsh-rocky86.sif rpmbuild --without rsh --without netgroup --without debug --without genders -rb pdsh-2.34-5.el8.src.rpm
 # Add pdsh-mod-slurm rpm to c3se-repo
 ```
