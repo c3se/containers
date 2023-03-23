@@ -1,0 +1,2 @@
+bootstrap: docker
+from: nvcr.io/nvidia/cuQuantum-appliance:22.11
