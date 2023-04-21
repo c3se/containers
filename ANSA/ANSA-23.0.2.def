@@ -21,3 +21,4 @@ From: centos:7
 
 %environment
     PATH=/opt/ansa_v23.0.2/:/opt/meta_post_v23.0.2/:/opt/retomo_v23.0.0:/opt/shared_v23.0.2/bin/:$PATH
+    LD_LIBRARY_PATH=/opt/shared_v23.0.2/linux64/lib64/qt/lib:$LD_LIBRARY_PATH
