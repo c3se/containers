@@ -22,3 +22,6 @@ From: rockylinux:8.5.20220308
     # Extract pre-downloadd adds tarball from central sources
     mkdir -p /opt/adds
     tar --strip-components=1 -C /opt/adds -xf /adds-88d65b200233a12dce19d1f1fcbe5ff4cbef8a97.tar.gz
+
+%runscript
+    /usr/bin/perl /opt/adds/downloader.pl
