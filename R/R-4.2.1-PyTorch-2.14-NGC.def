@@ -5,6 +5,7 @@ From: /apps/containers/PyTorch/PyTorch-1.14-NGC-22.12.sif
     Example container adding R to PyTorch NGC container (which runs ubuntu 20)
 
 %post
+    export DEBIAN_FRONTEND=noninteractive  # tzdata tries to ask things interactively
     apt-get update -y
     apt-get install -y r-base
 
