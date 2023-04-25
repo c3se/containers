@@ -5,8 +5,6 @@ From: /apps/containers/Conda/miniconda-22.11.1.sif
     Example container with just R base installed via conda
 
 %post
-    apt-get update -y
-
     # Install R
     conda update -n base -c defaults conda
     conda install -c conda-forge r-base=4.3.0
