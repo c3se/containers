@@ -1,0 +1,23 @@
+Bootstrap: localimage
+From: /apps/containers/Conda/miniconda-22.11.1.sif
+
+%help
+    Example container with just R base installed via conda
+
+%post
+    apt-get update -y
+
+    # Install R
+    conda update -n base -c defaults conda
+    conda install -c conda-forge r-base=4.3.0
+
+    # Set the default CRAN source
+    sed -i 's|# options(repos.*$|options(repos = c(CRAN="https://cloud.r-project.org/"))|' /usr/lib/R/library/base/R/Rprofile
+
+    # Install some packages
+    Rscript -e "install.packages('devtools', repos='http://cran.rstudio.com/')"
+    Rscript -e "install.packages('reticulate', repos='http://cran.rstudio.com/')"
+
+%environment
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/conda/lib/
+    export RECITULATE_PYTHON=/opt/conda/bin/python # just make reticulate stop suggesting installing an extra environment.

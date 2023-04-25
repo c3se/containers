@@ -1,0 +1,13 @@
+Bootstrap: localimage
+From: /apps/containers/R/R-4.3.0.sif
+
+%help
+    Example container adding support for TensorFlow based on R-4.3.0
+
+%post
+    # Recommended instructions from TensorFlow homepage
+    conda install -c conda-forge cudatoolkit=11.8.0
+    python3 -m pip install nvidia-cudnn-cu11==8.6.0.163 tensorflow==2.12.0
+
+    # Install some R packages
+    Rscript -e "install.packages('tensorflow')"

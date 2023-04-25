@@ -1,0 +1,10 @@
+Bootstrap: localimage
+From: /apps/containers/R/R-4.3.0-TensorFlow-2.12.0.sif
+
+%help
+    Example container adding support RStudio to an R container based on Ubuntu/Debian
+
+%post
+    wget -q "https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2022.02.0-443-amd64.deb"
+    apt install -y ./rstudio-*-amd64.deb
+    rm rstudio-*-amd64.deb
