@@ -1,0 +1,13 @@
+Bootstrap: localimage
+From: /apps/containers/PyTorch/PyTorch-1.14-NGC-22.12.sif
+
+%help
+    Example container adding R to PyTorch NGC container (which runs ubuntu 20)
+
+%post
+    apt-get update -y
+    apt-get install -y r-base
+
+    # Install some R packages
+    Rscript -e "install.packages('devtools')"
+    Rscript -e "install.packages('torch')"
