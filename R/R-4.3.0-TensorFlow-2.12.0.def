@@ -11,3 +11,7 @@ From: /apps/containers/R/R-4.3.0.sif
 
     # Install some R packages
     Rscript -e "install.packages('tensorflow')"
+
+%environment
+    # Conda+TF bug: TF cant find cuda runtime
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/conda/pkgs/cudatoolkit-11.8.0-h37601d7_11/lib/

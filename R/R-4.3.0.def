@@ -17,5 +17,4 @@ From: /apps/containers/Conda/miniconda-22.11.1.sif
     Rscript -e "install.packages('reticulate')"
 
 %environment
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/conda/lib/
     export RECITULATE_PYTHON=/opt/conda/bin/python # just make reticulate stop suggesting installing an extra environment.
