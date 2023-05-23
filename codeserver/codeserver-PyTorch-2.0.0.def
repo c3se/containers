@@ -1,0 +1,8 @@
+Bootstrap: localimage
+From: /apps/containers/PyTorch/PyTorch-2.0.0.sif
+
+%post
+    apt update
+    apt install curl -y
+    curl -fsSL https://code-server.dev/install.sh | sh
+
