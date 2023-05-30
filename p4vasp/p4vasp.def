@@ -1,0 +1,25 @@
+Bootstrap: localimage
+From: ../RockyLinux/RockyLinux-8.7.sif
+
+%help
+    Vasp post processor tool p4v
+
+%post
+    sed -i "s/enabled=0/enabled=1/" /etc/yum.repos.d/Rocky-PowerTools.repo
+    dnf install -y make gcc-c++ python2 fltk-devel python2-devel pygtk2
+    curl -L https://github.com/orest-d/p4vasp/archive/refs/heads/master.tar.gz --output master.tar.gz
+    tar xf master.tar.gz
+    cd p4vasp-master
+    sed -i "s/python2 fltk-config.py/fltk-config/" src/Configuration.mk
+    sed -i "s/ldstaticflags/ldflags/" src/Configuration.mk
+    make config
+    make install
+    cd ..
+    rm -r  p4vasp-master master.tar.gz
+
+%environment
+   PATH=$PATH:/usr/lib/p4vasp/utils
+
+%runscript
+    p4v
+
