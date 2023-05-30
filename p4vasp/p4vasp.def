@@ -1,12 +1,11 @@
 Bootstrap: localimage
-From: ../RockyLinux/RockyLinux-8.7.sif
+From: ../CentOS/CentOS-7.9.2009.sif
 
 %help
     Vasp post processor tool p4v
 
 %post
-    sed -i "s/enabled=0/enabled=1/" /etc/yum.repos.d/Rocky-PowerTools.repo
-    dnf install -y make gcc-c++ python2 fltk-devel python2-devel pygtk2
+    yum install -y make gcc-c++ fltk-devel python-devel pygtk2 pygtk2-libglade numpy PyOpenGL
     curl -L https://github.com/orest-d/p4vasp/archive/refs/heads/master.tar.gz --output master.tar.gz
     tar xf master.tar.gz
     cd p4vasp-master
