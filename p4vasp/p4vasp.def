@@ -6,10 +6,9 @@ From: ../CentOS/CentOS-7.9.2009.sif
 
 %post
     curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
-    curl http://mirror.centos.org/centos/7/os/x86_64/Packages/pcre2-utf16-10.23-2.el7.x86_64.rpm -o pcre2-utf16-10.23-2.el7.x86_64.rpm
     yum install -y VirtualGL
 
-    yum install -y make gcc-c++ fltk-devel python-devel pygtk2 pygtk2-libglade numpy PyOpenGL mesa-libGL-devel
+    yum install -y make gcc-c++ fltk-devel python-devel pygtk2 pygtk2-libglade numpy PyOpenGL mesa-libGL-devel mesa-libGLU-devel
     curl -L https://github.com/orest-d/p4vasp/archive/refs/heads/master.tar.gz --output master.tar.gz
     tar xf master.tar.gz
     cd p4vasp-master
