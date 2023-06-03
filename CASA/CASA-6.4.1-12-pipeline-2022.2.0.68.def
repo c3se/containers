@@ -8,11 +8,9 @@ From: ../RockyLinux/RockyLinux-8.7.sif
     /apps/sources/c/CASA/casa-6.4.1-12-pipeline-2022.2.0.68-py3.6.tar.xz
 
 %post
-    mkdir /opt
-    tar xf casa-6.5.5-21-py3.8.tar.xz -C /opt/
+    tar xf casa-*.tar.xz -C /opt/
     mv /opt/casa* /opt/casa
-    rm casa-6.5.5-21-py3.8.tar.xz
-
+    rm casa-*.tar.xz
 
     yum install -y epel-release
     yum install -y ImageMagick* xorg-x11-server-Xvfb compat-libgfortran-48 libnsl libcanberra-gtk2
