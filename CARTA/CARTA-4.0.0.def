@@ -1,0 +1,56 @@
+BootStrap: docker
+From: ubuntu:20.04
+
+%post
+    apt-get update
+    apt-get -y upgrade 
+    echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+    apt-get install -y apt-utils autoconf bison build-essential cmake curl fftw3-dev flex gcc g++
+    apt-get install -y gdb gfortran git git-lfs libgmock-dev googletest libblas-dev libcfitsio-dev
+    apt-get install -y libgsl-dev libgtest-dev libhdf5-dev liblapack-dev libncurses-dev
+    apt-get install -y libprotobuf-dev libreadline-dev libssl-dev libstarlink-ast-dev
+    apt-get install -y libtool libxml2-dev libxslt1-dev libzstd-dev pkg-config protobuf-compiler
+    apt-get install -y python3-numpy python3-astropy software-properties-common unzip wcslib-dev wget uuid-dev
+
+%post
+    apt-add-repository -y -s ppa:kernsuite/kern-7
+    add-apt-repository -y ppa:cartavis-team/carta
+    apt-get update
+    apt-get -y install carta-casacore-dev fits2idia libzfp-dev
+
+%post -c /bin/bash
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+    apt-get install -y nodejs
+    git clone https://github.com/emscripten-core/emsdk.git /opt/emsdk
+    cd /opt/emsdk 
+    ./emsdk install latest
+    ./emsdk activate latest
+    source ./emsdk_env.sh
+
+%post
+    git clone https://github.com/CARTAvis/carta-frontend /opt/carta-frontend
+    cd /opt/carta-frontend
+    git checkout v4.0.0
+    git submodule update --init --recursive
+    ./wasm_libs/build_libs.sh
+    npm install --legacy-peer-deps
+    # ./wasm_src/build_wrappers.sh
+    # ./protobuf/build_proto.sh
+    npm run build
+
+%post
+    # git clone https://github.com/CARTAvis/carta-backend /opt/carta-backend
+    # before PR accepted, use the branch allowing custom URL
+    git clone https://github.com/appolloford/carta-backend.git /opt/carta-backend
+    cd /opt/carta-backend
+    git checkout cjhsu/custom_url
+    git submodule update --init --recursive
+    cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release
+    cmake --build build -j4
+
+%environment
+    PORT=8947
+
+%runscript
+    /opt/carta-backend/build/carta_backend --frontend_folder=/opt/carta-frontend/build --no_browser --port=$PORT
+
