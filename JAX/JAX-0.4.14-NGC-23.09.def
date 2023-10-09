@@ -1,0 +1,2 @@
+bootstrap: docker
+from: nvcr.io/nvidia/jax:23.08-t5x-py3
