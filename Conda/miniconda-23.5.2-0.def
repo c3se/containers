@@ -1,0 +1,2 @@
+Bootstrap: docker
+From: continuumio/miniconda3:23.5.2-0
