@@ -4,12 +4,14 @@ From: centos:centos7
 %help
     General use CASA
 
+%files
+    /apps/sources/c/CASA/casa-6.2.1-7-pipeline-2021.2.0.128.tar.xz .
+
 %post
-    yum install -y wget
-    wget https://casa.nrao.edu/download/distro/casa/release/el7/casa-release-5.6.0-60.el7.tar.gz
-    tar xf casa-release-5.6.0-60.el7.tar.gz -C /opt/
+    yum install -y xz
+    tar xf casa-6.2.1-7-pipeline-2021.2.0.128.tar.xz -C /opt/
     mv /opt/casa* /opt/casa
-    rm casa-*.tar.gz
+    rm casa-*.tar.xz
     rm -r /opt/casa/data
     ln -s /cephyr/NOBACKUP/priv/casa-data /opt/casa/data
 

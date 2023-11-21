@@ -6,8 +6,8 @@ From: centos:centos7
 
 %post
     yum install -y wget
-    wget https://casa.nrao.edu/download/distro/casa/release/el7/casa-release-5.6.0-60.el7.tar.gz
-    tar xf casa-release-5.6.0-60.el7.tar.gz -C /opt/
+    wget https://casa.nrao.edu/download/distro/casa/release/el7/casa-release-4.7.2-el7.tar.gz
+    tar xf casa-release-4.7.2-el7.tar.gz -C /opt/
     mv /opt/casa* /opt/casa
     rm casa-*.tar.gz
     rm -r /opt/casa/data
@@ -20,4 +20,4 @@ From: centos:centos7
    export PATH=/opt/casa/bin/:$PATH
 
 %runscript
-   casa
+   bash -ic casa

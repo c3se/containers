@@ -1,0 +1,24 @@
+Bootstrap: localimage
+From: ../CentOS/CentOS-6.10-glibc2.14-getopt.sif
+
+%help
+    General use CASA
+
+%post
+    wget https://casa.nrao.edu/download/distro/casa/release/el6/casa-release-4.5.3-el6.tar.gz
+    tar xf casa-release-4.5.3-el6.tar.gz -C /opt/
+    mv /opt/casa* /opt/casa
+    rm casa-*.tar.gz
+    rm -r /opt/casa/data
+    ln -s /cephyr/NOBACKUP/priv/casa-data /opt/casa/data
+
+    # this has been updated in the docker image
+    # yum install -y epel-release
+    yum install -y libxslt xvfb
+    yum install -y ImageMagick* xorg-x11-server-Xvfb compat-libgfortran-48 libnsl libcanberra-gtk2 fuse fuse-libs
+
+%environment
+   export PATH=/opt/casa/bin/:$PATH
+
+%runscript
+   bash -ic casa
