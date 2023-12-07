@@ -1,0 +1,2 @@
+bootstrap: docker
+from: nvcr.io/hpc/gromacs:2023.2

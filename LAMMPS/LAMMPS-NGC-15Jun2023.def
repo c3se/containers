@@ -1,0 +1,2 @@
+Bootstrap: docker
+From: nvcr.io/hpc/lammps:patch_15Jun2023
