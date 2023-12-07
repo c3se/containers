@@ -1,5 +1,5 @@
-Bootstrap: localimage
-From: /apps/containers/Conda/miniconda-4.12.0.sif
+Bootstrap: docker
+From: continuumio/miniconda3:23.10.0-1
 
 %files
     requirements.txt
