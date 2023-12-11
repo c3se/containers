@@ -1,5 +1,5 @@
 bootstrap: docker
-from: nvcr.io/nvidia/pytorch:23.09-py3
+from: nvcr.io/nvidia/pytorch:23.11-py3
 
 %post
     # Make sure to use the correct jupyter config
