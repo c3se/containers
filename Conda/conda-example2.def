@@ -1,5 +1,6 @@
 Bootstrap: localimage
-From: /apps/containers/Conda/miniconda3-23.10.0-1.sif
+From: /apps/containers/Conda/miniconda3-latest.sif
+#From: /apps/containers/Conda/miniconda3-23.10.0-1.sif
 
 %files
     requirements.txt
