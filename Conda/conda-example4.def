@@ -1,6 +1,6 @@
 Bootstrap: localimage
-From: /apps/containers/Conda/miniconda3-latest.sif
-#From: /apps/containers/Conda/miniconda3-23.10.0-1.sif
+From: /apps/containers/Conda/miniconda-latest.sif
+#From: /apps/containers/Conda/miniconda-23.10.0-1.sif
 
 %post
     /opt/conda/bin/conda install -c bioconda -c conda-forge -y snakemake pypsa
