@@ -1,0 +1,8 @@
+Bootstrap: docker
+From: ludwigai/ludwig-ray-gpu:0.9.3
+
+%help
+    See https://www.c3se.chalmers.se/documentation/applications/ludwig/
+
+%runscript
+    /home/ray/anaconda3/bin/ludwig

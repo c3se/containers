@@ -1,0 +1,7 @@
+Bootstrap: localimage
+From: base-rpmbuild-rocky93.sif
+
+%post
+    yum upgrade -y
+    yum install -y libedit-devel ncurses-devel gcc-c++ libstdc++-devel openssl-devel systemd-devel boost-devel checkpolicy logrotate mariadb-connector-c-devel postgresql-devel selinux-policy-devel
+    yum upgrade -y
