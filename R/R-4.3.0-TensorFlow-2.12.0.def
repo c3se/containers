@@ -5,12 +5,18 @@ From: /apps/containers/R/R-4.3.0.sif
     Example container adding support for TensorFlow based on R-4.3.0
 
 %post
+    conda config --remove channels defaults
+    conda config --add channels conda-forge
+    conda update --all
+
     # Recommended instructions from TensorFlow homepage
     conda install -c conda-forge cudatoolkit=11.8.0
-    python3 -m pip install nvidia-cudnn-cu11==8.6.0.163 tensorflow==2.12.0
+
+    conda install pip
+    python3 -m pip install nvidia-cudnn-cu11==8.6.0.163 tensorflow[and-cuda]==2.12.0
 
     # Install some R packages
-    Rscript -e "install.packages('tensorflow')"
+    Rscript -e "install.packages('tensorflow',  repos='https://cloud.r-project.org/')"
 
 %environment
     # Conda+TF bug: TF cant find cuda runtime

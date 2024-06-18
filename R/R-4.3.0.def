@@ -7,13 +7,14 @@ From: /apps/containers/Conda/miniconda-22.11.1.sif
 %post
     # Install R
     conda update -n base -c defaults conda
-    conda install -c conda-forge r-base=4.3.0
+    conda install -c conda-forge pkg-config r-base=4.3.0
 
-    # Set the default CRAN source because conda does not do this by default
     sed -i 's|# options(repos.*$|options(repos = c(CRAN="https://cloud.r-project.org/"))|' /opt/conda/lib/R/library/base/R/Rprofile
 
-    # Install some packages
-    Rscript -e "install.packages('devtools')"
+    Rscript -e "install.packages(c('devtools', 'lattice'))"
+
+    # Matrix 1.7.0 requires r-base version > 4.4.0
+    Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/Matrix/Matrix_1.6-5.tar.gz', type='source')"
     Rscript -e "install.packages('reticulate')"
 
 %environment

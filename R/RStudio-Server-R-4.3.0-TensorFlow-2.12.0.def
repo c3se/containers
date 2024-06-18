@@ -8,7 +8,14 @@ From: /apps/containers/R/R-4.3.0-TensorFlow-2.12.0.sif
     # Temporarily clear LD_LIBRARY_PATH from conda here because it interferes with apt-get
     LD_LIBRARY_PATH=
     apt-get update -y
+    apt-get upgrade -y libstdc++6
 
     wget -q "https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2023.03.0-386-amd64.deb"
     apt install -y ./rstudio-*-amd64.deb
     rm rstudio-*-amd64.deb
+
+%environment
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/conda/lib
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/conda/lib/python3.10/site-packages/nvidia/cudnn/lib
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/conda/pkgs/cudatoolkit-11.8.0-h4ba93d1_13/lib/
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/.singularity.d/libs
