@@ -1,0 +1,33 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+%post
+    apt update -q
+    DEBIAN_FRONTEND=noninteractive apt install -yq \
+        locales-all \
+        python3 \
+        python3-pip \
+        python3-venv \
+        gdebi-core \
+        git \
+        software-properties-common \
+        wget
+
+    # R
+    #==========================================================================
+    # https://cran.r-project.org/bin/linux/ubuntu/fullREADME.html
+    #
+    add-apt-repository deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+
+    apt update -q
+    DEBIAN_FRONTEND=noninteractive apt install -yq \
+        r-base \
+        r-base-dev
+
+    # RStudio Server
+    #==========================================================================
+    # https://posit.co/download/rstudio-server/
+    #
+    wget https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2024.04.2-764-amd64.deb
+    gdebi -n rstudio-server-2024.04.2-764-amd64.deb
