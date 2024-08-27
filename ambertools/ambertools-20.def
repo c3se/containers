@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: continuumio/miniconda3
+From: quay.io/condaforge/miniforge3:4.13.0-1
 
 %post
     /opt/conda/bin/conda install -c conda-forge -y ambertools=20

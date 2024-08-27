@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: continuumio/conda-ci-linux-64-python3.9
+From: quay.io/condaforge/miniforge3:4.13.0-1
 
 %post
 

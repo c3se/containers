@@ -1,13 +1,13 @@
 Bootstrap: localimage
-From: /apps/containers/Conda/miniconda-22.11.1.sif
+From: /apps/containers/Conda/miniforge-22.11.1-4.sif
 
 %help
     Example container with just R base installed via conda
 
 %post
     # Install R
-    conda update -n base -c defaults conda
-    conda install -c conda-forge pkg-config r-base=4.3.0
+    conda update -n base conda
+    conda install pkg-config r-base=4.3.0
 
     sed -i 's|# options(repos.*$|options(repos = c(CRAN="https://cloud.r-project.org/"))|' /opt/conda/lib/R/library/base/R/Rprofile
 

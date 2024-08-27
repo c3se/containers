@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: continuumio/miniconda3
+From: quay.io/condaforge/miniforge3:4.9.2-7
 
 %help
     "A container image of the FEniCS project."
@@ -9,12 +9,12 @@ From: continuumio/miniconda3
 
 %post
     /opt/conda/bin/conda config --add channels bioconda
-    /opt/conda/bin/conda config --add channels anaconda
+    # /opt/conda/bin/conda config --add channels anaconda
     /opt/conda/bin/conda config --add channels tensorly
     /opt/conda/bin/conda config --add channels pytorch
     /opt/conda/bin/conda config --add channels conda-forge
 
-    /opt/conda/bin/conda update --all
+    # /opt/conda/bin/conda update --all
     /opt/conda/bin/conda install --yes --file requirements.txt
 
     # Make image writable with overlays
