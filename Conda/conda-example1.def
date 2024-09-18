@@ -1,6 +1,6 @@
 Bootstrap: localimage
-From: /apps/containers/Conda/miniconda-latest.sif
-#From: /apps/containers/Conda/miniconda-23.10.0-1.sif
+From: /apps/containers/Conda/conda-latest.sif
+#From: /apps/containers/Conda/miniforge-24.3.0-0.sif
 
 %post
     /opt/conda/bin/conda install -y numpy

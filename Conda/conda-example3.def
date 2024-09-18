@@ -1,6 +1,6 @@
 Bootstrap: docker
-From: continuumio/miniconda3:latest
-#From: continuumio/miniconda3:23.10.0-1
+From: quay.io/condaforge/miniforge3:latest
+#From: quay.io/condaforge/miniforge3:24.3.0-0
 
 %files
     requirements.txt
