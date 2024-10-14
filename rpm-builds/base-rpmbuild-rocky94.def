@@ -7,12 +7,6 @@ Include: yum
 %environment
     export LC_ALL=C
 
-%files
-    /etc/yum.repos.d/c3se-repos.repo /etc/yum.repos.d
-
-%setup
-    sed -i 's/enabled=1/enabled=0/' ${SINGULARITY_ROOTFS}/etc/yum.repos.d/rocky*repo
-
 %post
     yum install -y rpm-build automake autoconf libtool make pkg-config less vim flex bison cmake which zlib-devel
     yum upgrade -y
