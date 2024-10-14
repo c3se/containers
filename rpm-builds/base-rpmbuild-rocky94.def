@@ -1,0 +1,12 @@
+Bootstrap: yum
+OSVersion: 9.4
+MirrorURL: https://download.rockylinux.org/pub/rocky/%{OSVERSION}/BaseOS/x86_64/os/
+#MirrorURL: https://dl.rockylinux.org/vault/rocky/%{OSVERSION}/BaseOS/x86_64/os/
+Include: yum
+
+%environment
+    export LC_ALL=C
+
+%post
+    yum install -y rpm-build automake autoconf libtool make pkg-config less vim flex bison cmake which zlib-devel
+    yum upgrade -y
