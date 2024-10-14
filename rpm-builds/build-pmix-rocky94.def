@@ -1,0 +1,7 @@
+Bootstrap: localimage
+From: base-rpmbuild-rocky94.sif
+
+%post
+    yum upgrade -y
+    yum install -y zlib-devel munge-devel hwloc-devel libevent-devel python3-devel
+    yum upgrade -y

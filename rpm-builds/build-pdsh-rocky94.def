@@ -1,0 +1,7 @@
+Bootstrap: localimage
+From: base-rpmbuild-rocky94.sif
+
+%post
+    yum upgrade -y
+    yum install -y readline-devel slurm-devel perl-generators munge-devel
+    yum upgrade -y
