@@ -1,0 +1,2 @@
+Bootstrap: docker
+From: ghcr.io/open-webui/open-webui:main
