@@ -1,0 +1,23 @@
+Bootstrap: localimage
+From: ../RockyLinux/RockyLinux-8.7.sif
+
+%help
+    General use CASA
+
+%post
+    yum install -y xz wget
+    wget https://casa.nrao.edu/download/distro/casa-pipeline/release/linux/casa-6.5.4-9-pipeline-2023.1.1.8-py3.8.tar.xz
+    tar xf casa-6.5.4-9-pipeline-2023.1.1.8-py3.8.tar.xz -C /opt/
+    mv /opt/casa* /opt/casa
+    rm casa-*.tar.xz
+    rm -r /opt/casa/data
+    ln -s /cephyr/NOBACKUP/priv/casa-data /opt/casa/data
+
+    yum install -y epel-release
+    yum install -y ImageMagick* xorg-x11-server-Xvfb compat-libgfortran-48 libnsl libcanberra-gtk2 fuse fuse-libs
+
+%environment
+    export PATH=/opt/casa/bin/:$PATH
+
+%runscript
+    casa --pipeline
