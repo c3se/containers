@@ -5,3 +5,4 @@ test/
 .cache/
 junk/
 Ollama/ollama
+*.sif.bak
