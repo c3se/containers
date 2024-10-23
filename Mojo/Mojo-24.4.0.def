@@ -1,0 +1,21 @@
+Bootstrap: docker
+From: ubuntu:jammy-20240808
+
+%help
+    Minimal Ubuntu image from dockerhub
+
+%post
+    apt-get update
+    apt-get install -y curl libedit2
+    curl -s https://get.modular.com | sh -
+
+    export MODULAR_HOME=/opt/modular/
+    mkdir $MODULAR_HOME
+    modular install max
+    MAX_PATH=$(modular config max.path) && python3 -m pip install --find-links $MAX_PATH/wheels max-engine
+
+%environment
+    export MODULAR_HOME=/opt/modular/
+    MAX_PATH=$(modular config max.path)
+    PATH=${MAX_PATH}/bin:$PATH
+    
