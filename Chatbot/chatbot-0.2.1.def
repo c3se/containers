@@ -1,0 +1,9 @@
+bootstrap: localimage
+from: /apps/containers/PyTorch/PyTorch-2.3.0-NGC-24.04.sif
+
+%post
+    pip install -U nodejs jupyterlab
+    pip install sentencepiece bitsandbytes
+    pip install chatbot_kernel==0.2.1
+    python -m chatbot_kernel install --prefix /usr/local
+

@@ -1,0 +1,11 @@
+bootstrap: localimage
+from: /apps/containers/PyTorch/PyTorch-2.3.0-NGC-24.04.sif
+
+%post
+    pip install -U nodejs jupyterlab
+    pip install sentencepiece bitsandbytes
+    # pip install transformers==4.44.2  # llama 3.1
+    pip install transformers
+    pip install chatbot_kernel==0.3.3
+    python -m chatbot_kernel install --prefix /usr/local
+
