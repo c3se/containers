@@ -1,0 +1,2 @@
+bootstrap: docker
+from: tensorflow/tensorflow:2.18.0-gpu-jupyter
