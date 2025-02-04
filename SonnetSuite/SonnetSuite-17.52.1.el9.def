@@ -1,0 +1,34 @@
+Bootstrap: docker
+From: rockylinux:9.3
+
+%files
+    /apps/sources/s/Sonnet/sonnetsuite.17.52.1.linux64.tar .
+
+%post
+    yum install -y glibc freetype fontconfig zlib libdrm qt5-qtbase
+    yum install -y mesa-libGLU xorg-x11-server-Xorg xorg-x11-xauth # xorg-x11-apps
+
+    yum install -y libSM libXt libpng libjpeg-turbo fontconfig libXi pcre libgomp nss
+    yum install -y libxcb libxkbcommon libxkbcommon-devel libxkbcommon-x11 libxcb-devel xcb-util
+    yum install -y xcb-util-image xcb-util-keysyms xcb-util-renderutil xcb-util-wm
+    yum install -y libX11-xcb libXrender libXcursor libXcomposite libXdamage libXft libXrandr
+
+    tar xf sonnetsuite.17.52.1.linux64.tar
+    rm sonnetsuite.17.52.1.linux64.tar
+    cd sonnetsoftware
+    mkdir -p /opt/sonnet
+    sed -i 's|read INSTALL_DIRECTORY|INSTALL_DIRECTORY=/opt/sonnet|' ./sonnetinstall
+    sed -i 's|askyesno \$ANS .*copying the files.*$|ANS=yes|' ./sonnetinstall
+    bash ./sonnetinstall -skiplicense
+    cd ..
+    rm -r sonnetsoftware
+    cd /opt/sonnet/licenses
+    echo $'SERVER sonnet.mc2.chalmers.se ANY 27720\nUSE_SERVER' > sonnet.lic
+    
+    # Make image writable with overlays
+    chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
+
+%environment
+    export SONNET_DIR=/opt/sonnet
+    PATH=${PATH}:${SONNET_DIR}/bin
+

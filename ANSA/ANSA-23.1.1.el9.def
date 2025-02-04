@@ -1,0 +1,24 @@
+Bootstrap: docker
+From: rockylinux:9.3
+
+%files
+    /apps/sources/a/ANSA/BETA_CAE_Systems_v23.1.1_linux_x64.sh /opt
+    /apps/sources/a/ANSA/BETA_CAE_Systems_retomo_v23.1.0_linux_x64.sh /opt
+    /apps/sources/a/ANSA/BETA_CAE_Systems_meta_post_external_libs_v23.1.1_linux_x64.sh /opt
+
+%post
+    curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
+    yum -y install VirtualGL libXft libXcursor libXrandr libXinerama libSM libXt xorg-x11-server-utils mesa-dri-drivers libxcrypt-compat
+
+    sh /opt/BETA_CAE_Systems_v*.sh --meta-install-abaqus --prefix=/opt --exclude-subdir --skip-license --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
+    rm /opt/BETA_CAE_Systems_v*.sh
+
+    sh /opt/BETA_CAE_Systems_retomo_v*.sh --meta-install-abaqus --prefix=/opt --exclude-subdir --skip-license --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
+    rm /opt/BETA_CAE_Systems_retomo_v*.sh
+
+    sh /opt/BETA_CAE_Systems_meta_post_external_libs_v*.sh --meta-install-abaqus --prefix=/opt --exclude-subdir --skip-license --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
+    rm /opt/BETA_CAE_Systems_meta_post_external_libs_v*.sh
+
+%environment
+    PATH=/opt/ansa_v23.1.1/:/opt/meta_post_v23.1.1/:/opt/retomo_v23.1.0:/opt/shared_v23.1.1/bin/:$PATH
+    LD_LIBRARY_PATH=/opt/shared_v23.1.1/linux64/lib64/qt/lib:$LD_LIBRARY_PATH

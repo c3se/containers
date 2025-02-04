@@ -1,0 +1,17 @@
+Bootstrap: docker
+From: rockylinux:9.3
+
+%files
+    /apps/sources/f/FDTD/FDTD-8.19.1541-1.el6.x86_64.rpm
+
+%post
+    curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
+    yum update -y VirtualGL
+    yum update -y FDTD-8.19.1541-1.el6.x86_64.rpm
+
+    # Make image writable with overlays
+    chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
+
+%environment
+    PATH=/usr/sbin:/usr/bin:/sbin:/bin:/opt/lumerical/fdtd/bin
+    LD_LIBRARY_PATH=/opt/lumerical/fdtd/lib

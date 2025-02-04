@@ -1,0 +1,20 @@
+Bootstrap: docker
+From: rockylinux:9.3
+
+%help
+    VESTA - Visualization for Electronic and STructural Analysis
+
+%files
+    /apps/sources/v/VirtualGL/VirtualGL-3.0.90.x86_64.rpm .
+
+%post
+    # VirtualGL is essential for functionality of VESTA
+    # Repo is broken unfortunately
+    #printf "[VGL]\nname=VGL\nbaseurl=https://sourceforge.net/projects/virtualgl/files\ngpgcheck=0" > /etc/yum.repos.d/vgl.repo
+    yum install -y VirtualGL*.rpm
+    rm VirtualGL*.rpm
+    yum install -y https://jp-minerals.org/vesta/archives/3.5.8/vesta-3.5.8-1.x86_64.rpm
+    yum clean all
+
+%runscript
+    vglrun VESTA $@

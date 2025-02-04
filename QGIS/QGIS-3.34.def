@@ -1,0 +1,5 @@
+Bootstrap: docker
+From: qgis/qgis:3.34
+
+%runscript
+    qgis $@

@@ -1,0 +1,65 @@
+Bootstrap: docker
+From: rockylinux:9.3
+
+%files
+    /apps/sources/d/DIANA/dianaLinux-10.7.tar.gz .
+
+%post
+    # yum install -y pcre2-utf16-10.23-2.el7.x86_64.rpm
+    # yum install -y epel-release
+    curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
+    # curl http://mirror.centos.org/centos/7/os/x86_64/Packages/pcre2-utf16-10.23-2.el7.x86_64.rpm -o pcre2-utf16-10.23-2.el7.x86_64.rpm
+    yum install -y pcre2-utf16 libxcrypt-compat dbus-libs
+    yum install -y libSM libXt libpng libjpeg-turbo fontconfig libXi libxkbcommon pcre libgomp nss
+    yum install -y VirtualGL
+    yum install -y mesa-dri-drivers mesa-libGL-devel glibc-devel libseccomp
+    yum install -y libxcb libxkbcommon libxkbcommon-devel libxkbcommon-x11 libxcb-devel xcb-util
+    yum install -y xcb-util-image xcb-util-keysyms xcb-util-renderutil xcb-util-wm
+    yum install -y libX11-xcb libXrender libXcursor libXcomposite libXdamage libXft libXrandr
+    yum install -y pciutils-libs alsa-lib harfbuzz
+    yum install -y epel-release
+    yum install -y libicu60
+    # Cannot be launched on Alvis OnDemand. Get error message:
+    # libEGL warning: egl: failed to create dri2 screen
+    # yum install -y egl-utils libwayland-egl egl-wayland freeglut gegl
+    # yum install -y avahi-libs cups-libs glx-utils libevdev libgudev libinput libwacom libwacom-data mtdev
+    # yum install -y libXScrnSaver-devel
+    mkdir -p /opt/diana
+    tar xf dianaLinux-10.7.tar.gz -C /opt/diana
+    rm dianaLinux-10.7.tar.gz
+    yum clean all
+    ./opt/diana/configureDiana
+
+    # Make image writable with overlays
+    chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
+
+%environment
+    DIAPATH=/opt/diana
+    OSTYPE=UNIX
+    BINSEG=${DIAPATH}/bin
+    DIASHARE=${DIAPATH}/share
+    SEGPATH="${BINSEG}"
+    DIABIN=${DIAPATH}/bin
+    DIASCRIPT=${DIASHARE}/script
+    DIALIB=${DIAPATH}/lib
+    DIASLIB=${DIASHARE}/lib
+    FGVKEY=${DIASLIB}
+    FG_PRE_INT=DIANA
+    FG_PRE_EXT=.dat
+    FEMSYS_INIT=${DIASLIB}/femsys.ini
+    FV_OEM_LOGO=${DIASHARE}/lib/diana.xbm
+    FGV_HTMLDOC=${DIASHARE}/Man/HTML
+    FGV_PROPLABELS=${DIASLIB}
+    IENV=terminal
+    #FOR5=`tty`
+    #FOR6=`tty`
+    DOC=${DIASHARE}/doc
+    TREE=${DIASHARE}/Tree
+    DIAERRPATH=${DIASHARE}/src
+
+    PATH=:${DIABIN}:${DIASCRIPT}:${PATH}
+    LD_LIBRARY_PATH="${DIALIB}"${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH}
+    export DIAPATH OSTYPE BINSEG DIASHARE SEGPATH DIABIN DIASCRIPT DIALIB DIASLIB FGVKEY FG_PRE_INT FG_PRE_EXT FEMSYS FV_OEM_LOGO FGV_HTMLDOC FGV_PROPLABELS IENV DOC TREE DIAERRPATH
+
+%runscript
+    vglrun DianaIE $@
