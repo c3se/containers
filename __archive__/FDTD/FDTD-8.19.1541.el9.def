@@ -5,9 +5,10 @@ From: rockylinux:9.3
     /apps/sources/f/FDTD/FDTD-8.19.1541-1.el6.x86_64.rpm
 
 %post
+    yum update -y
     curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
-    yum update -y VirtualGL
-    yum update -y FDTD-8.19.1541-1.el6.x86_64.rpm
+    yum install -y VirtualGL
+    yum install -y FDTD-8.19.1541-1.el6.x86_64.rpm
 
     # Make image writable with overlays
     chmod a+rwX -fR /boot /bin /sbin /lib /lib32 /lib64 /usr /etc /var /opt || :
