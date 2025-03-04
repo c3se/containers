@@ -1,0 +1,11 @@
+bootstrap: docker
+from: pytorch/pytorch:2.5.1-cuda12.4-cudnn9-devel
+
+# NGC does not have a container for torch==2.5.1, which is required by vllm
+
+%post
+    pip install -U nodejs jupyterlab
+    pip install vllm==0.7.2
+    pip install chatbot_kernel==0.4.1
+    python -m chatbot_kernel install --prefix /usr/local
+
