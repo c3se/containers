@@ -1,0 +1,5 @@
+bootstrap: docker
+from: nvcr.io/nvidia/nemo:24.12.01
+
+%help
+    https://docs.nvidia.com/nemo-framework/user-guide/24.12/index.html
