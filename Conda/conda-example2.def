@@ -3,7 +3,10 @@ From: /apps/containers/Conda/conda-latest.sif
 #From: /apps/containers/Conda/miniforge-24.3.0-0.sif
 
 %files
-    requirements.txt
+    my-requirements.txt
+    my-environment.yml
 
 %post
-    /opt/conda/bin/conda install -y --file requirements.txt
+    /opt/conda/bin/conda install -y --file my-requirements.txt
+    # and/or using an a custom environment file:
+    /opt/conda/bin/mamba env update -n base -f my-environment.yml
