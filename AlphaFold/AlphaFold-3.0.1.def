@@ -1,0 +1,65 @@
+Bootstrap: docker
+From: nvcr.io/nvidia/jax:25.01-py3
+
+%arguments
+    VERSION=3.0.1
+    WORKERS=8
+
+%help
+    Copyright 2024 DeepMind Technologies Limited
+
+    AlphaFold 3 source code is licensed under CC BY-NC-SA 4.0. To view a copy of
+    this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+    To request access to the AlphaFold 3 model parameters, follow the process set
+    out at https://github.com/google-deepmind/alphafold3. You may only use these
+    if received directly from Google. Use is subject to terms of use available at
+    https://github.com/google-deepmind/alphafold3/blob/main/WEIGHTS_TERMS_OF_USE.md
+
+%post
+    # Update pip to the latest version. Not necessary in Docker, but good to do when
+    # this is used as a recipe for local installation since we rely on new pip
+    # features for secure installs.
+    pip3 install --upgrade pip
+    
+    # Pin current versions (we're not installing in venvs so want to be careful here)
+    pip install -r <(pip freeze)
+
+    # Install HMMER
+    apt-get install --yes hmmer
+
+    # Get the AlphaFold 3 source code
+    mkdir /alphafold_build/
+    cd /alphafold_build/
+    wget https://github.com/google-deepmind/alphafold3/archive/refs/tags/v{{VERSION}}.tar.gz
+    tar -xzf v{{VERSION}}.tar.gz
+    rm v{{VERSION}}.tar.gz
+
+    # Relax jax version requirements slighlty and install alphafold3
+    cd alphafold3-{{VERSION}}/
+    sed -i -E 's/(jax[^=]*)==/\1~=/' pyproject.toml
+    sed -i -E 's/(jax)\[cuda.*\]/\1/' pyproject.toml
+    pip3 install .
+    rm -R /alphafold_build/
+    
+    # Build chemical components database (this binary was installed by pip).
+    build_data
+
+%environment
+    export PATH="/opt/hmmer/bin:$PATH"  
+    # To work around a known XLA issue causing the compilation time to greatly
+    # increase, the following environment variable setting XLA flags must be enabled
+    # when running AlphaFold 3. Note that if using CUDA capability 7 GPUs, it is
+    # necessary to set the following XLA_FLAGS value instead:
+    # ENV XLA_FLAGS="--xla_disable_hlo_passes=custom-kernel-fusion-rewriter"
+    # (no need to disable gemm in that case as it is not supported for such GPU).
+    XLA_FLAGS="--xla_disable_hlo_passes=custom-kernel-fusion-rewriter --xla_gpu_enable_triton_gemm=false"
+    # Memory settings used for folding up to 5,120 tokens on A100 80 GB.
+    XLA_PYTHON_CLIENT_PREALLOCATE=true
+    XLA_CLIENT_MEM_FRACTION=0.95
+
+%test
+    jackhmmer -h && run_alphafold --help
+
+%runscript
+    run_alphafold.py "$@" 

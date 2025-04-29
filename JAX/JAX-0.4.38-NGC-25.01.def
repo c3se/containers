@@ -1,0 +1,5 @@
+bootstrap: docker
+from: nvcr.io/nvidia/jax:25.01-py3
+
+%help
+    https://docs.nvidia.com/deeplearning/frameworks/jax-release-notes/rel-24-10.html
