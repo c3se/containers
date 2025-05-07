@@ -3,7 +3,6 @@ From: nvcr.io/nvidia/jax:25.01-py3
 
 %arguments
     VERSION=3.0.1
-    WORKERS=8
 
 %help
     Copyright 2024 DeepMind Technologies Limited
@@ -17,13 +16,9 @@ From: nvcr.io/nvidia/jax:25.01-py3
     https://github.com/google-deepmind/alphafold3/blob/main/WEIGHTS_TERMS_OF_USE.md
 
 %post
-    # Update pip to the latest version. Not necessary in Docker, but good to do when
-    # this is used as a recipe for local installation since we rely on new pip
-    # features for secure installs.
+    # Update installers to be ready for installations
+    apt-get update --yes --quiet
     pip3 install --upgrade pip
-    
-    # Pin current versions (we're not installing in venvs so want to be careful here)
-    pip install -r <(pip freeze)
 
     # Install HMMER
     apt-get install --yes hmmer
@@ -35,18 +30,22 @@ From: nvcr.io/nvidia/jax:25.01-py3
     tar -xzf v{{VERSION}}.tar.gz
     rm v{{VERSION}}.tar.gz
 
-    # Relax jax version requirements slighlty and install alphafold3
+    # Relax jax version requirements slightly and install alphafold3
     cd alphafold3-{{VERSION}}/
     sed -i -E 's/(jax[^=]*)==/\1~=/' pyproject.toml
     sed -i -E 's/(jax)\[cuda.*\]/\1/' pyproject.toml
+
     pip3 install .
+
+    cat <(echo "#!/usr/bin/env python") run_alphafold.py > /usr/local/bin/run_alphafold.py
+    chmod +x /usr/local/bin/run_alphafold.py
+
     rm -R /alphafold_build/
-    
+
     # Build chemical components database (this binary was installed by pip).
     build_data
 
 %environment
-    export PATH="/opt/hmmer/bin:$PATH"  
     # To work around a known XLA issue causing the compilation time to greatly
     # increase, the following environment variable setting XLA flags must be enabled
     # when running AlphaFold 3. Note that if using CUDA capability 7 GPUs, it is
@@ -59,7 +58,7 @@ From: nvcr.io/nvidia/jax:25.01-py3
     XLA_CLIENT_MEM_FRACTION=0.95
 
 %test
-    jackhmmer -h && run_alphafold --help
+    (jackhmmer -h && command -v run_alphafold.py) > /dev/null
 
 %runscript
     run_alphafold.py "$@" 
