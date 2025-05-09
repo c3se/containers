@@ -1,0 +1,13 @@
+Bootstrap: localimage
+From: /apps/containers/RockyLinux/RockyLinux-9.5.sif
+
+%post
+    dnf install -y wget nss dbus dbus-libs atk at-spi2-atk cups-libs libdrm gdk-pixbuf2 gtk3
+    wget https://installers.lmstudio.ai/linux/x64/0.3.15-11/LM-Studio-0.3.15-11-x64.AppImage \
+         -P /opt
+    cd /opt
+    chmod +x LM-Studio-0.3.15-11-x64.AppImage
+    ./LM-Studio-0.3.15-11-x64.AppImage --appimage-extract
+
+%runscript
+    /opt/squashfs-root/AppRun
