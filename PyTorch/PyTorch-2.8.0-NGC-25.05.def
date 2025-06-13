@@ -1,0 +1,5 @@
+bootstrap: docker
+from: nvcr.io/nvidia/pytorch:25.05-py3
+
+%help
+    https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/rel-25-04.html
