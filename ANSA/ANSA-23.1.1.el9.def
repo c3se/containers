@@ -8,7 +8,7 @@ From: rockylinux:9.3
 
 %post
     curl https://virtualgl.org/pmwiki/uploads/Downloads/VirtualGL.repo -o /etc/yum.repos.d/VirtualGL.repo
-    yum -y install VirtualGL libXft libXcursor libXrandr libXinerama libSM libXt xorg-x11-server-utils mesa-dri-drivers libxcrypt-compat
+    yum install -y VirtualGL libXft libXcursor libXrandr libXinerama libSM libXt xorg-x11-server-utils mesa-dri-drivers libxcrypt-compat
 
     sh /opt/BETA_CAE_Systems_v*.sh --meta-install-abaqus --prefix=/opt --exclude-subdir --skip-license --beta-lm-server=27050@ansalic1.lic.chalmers.se,27050@ansalic2.lic.chalmers.se,27050@ansalic3.lic.chalmers.se
     rm /opt/BETA_CAE_Systems_v*.sh

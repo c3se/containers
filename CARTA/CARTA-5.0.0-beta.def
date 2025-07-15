@@ -1,0 +1,18 @@
+BootStrap: docker
+From: ubuntu:24.04
+
+%post
+    apt-get update
+    apt-get -y upgrade 
+    apt-get install -y software-properties-common
+    echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+    add-apt-repository -y ppa:cartavis-team/carta
+    apt-get update
+    apt-get install -y carta-beta
+
+%environment
+    PORT=8947
+
+%runscript
+    carta_backend --no_browser --port=$PORT
+
