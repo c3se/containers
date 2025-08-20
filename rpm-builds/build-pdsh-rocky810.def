@@ -1,0 +1,8 @@
+Bootstrap: localimage
+From: base-rpmbuild-rocky810.sif
+
+%post
+    yum clean all
+    yum upgrade -y
+    yum install -y readline-devel slurm-devel perl-generators munge-devel
+    yum upgrade -y
