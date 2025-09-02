@@ -1,0 +1,2 @@
+bootstrap: docker
+from: nvcr.io/nvidia/rapidsai/notebooks:25.08-cuda12.9-py3.13
