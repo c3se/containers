@@ -1,0 +1,12 @@
+Bootstrap: localimage
+From: /apps/containers/RockyLinux/RockyLinux-10.sif
+
+%files
+    /apps/sources/v/VirtualGL/VirtualGL-3.1.3.x86_64.rpm .
+    /apps/sources/w/Warp/warp-terminal-v0.2025.08.27.08.11.stable_04-1.x86_64.rpm .
+
+%post
+    yum install -y warp-terminal-v0.2025.08.27.08.11.stable_04-1.x86_64.rpm VirtualGL-3.1.3.x86_64.rpm
+
+%runscript
+    warp-terminal
