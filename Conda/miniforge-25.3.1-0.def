@@ -1,0 +1,28 @@
+#
+# Miniforge3 holds the minimal installers for Conda and Mamba specific to
+# conda-forge, with the following features pre-configured:
+#
+# * Packages in the base environment are obtained from the conda-forge channel.
+# * The conda-forge channel is set as the default (and only) channel.
+#
+# The container is based on a minimal Ubuntu installation that includes
+# conda-forges miniforge3 installer pre-installed at /opt/conda. The tags of
+# the images are in line with the official miniforge release tags.
+# 
+# The code used for building the image can be found at
+# https://github.com/conda-forge/miniforge-images
+#
+Bootstrap: docker
+From: quay.io/condaforge/miniforge3:25.3.1-0
+
+%environment
+    #
+    # Register Tini as a child subreaper to silence the error:
+    #
+    #   [WARN  tini (72068)] Tini is not running as PID 1 and isnt registered as a child subreaper.
+    #
+    export TINI_SUBREAPER=true
+
+%test
+    conda --version
+    conda list
