@@ -1,0 +1,15 @@
+Bootstrap: docker
+From: python:3.13-trixie
+
+%help
+    This is a small, but not necessarily performant library. For heavy use,
+    use the compiled modules instead.
+
+%post
+    pip install --no-cache-dir --root-user-action=ignore "pandas==2.3.2"
+
+%test
+    python -c "import pandas"
+
+%runscript
+    python "$@"
