@@ -1,0 +1,8 @@
+bootstrap: localimage
+from: /apps/containers/RockyLinux/RockyLinux-10.sif
+
+%post
+    dnf update -y
+    dnf install -y nodejs npm python3-pip
+    pip install chainlit==2.5.5 openai mcp[cli] requests bs4 SQLAlchemy aiosqlite
+
