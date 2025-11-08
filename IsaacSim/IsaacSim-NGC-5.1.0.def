@@ -1,0 +1,2 @@
+bootstrap: docker
+from: nvcr.io/nvidia/isaac-sim:5.1.0
