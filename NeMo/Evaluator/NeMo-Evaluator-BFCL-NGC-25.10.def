@@ -1,0 +1,5 @@
+bootstrap: docker
+from: nvcr.io/nvidia/eval-factory/bfcl:25.10
+
+%help
+    https://catalog.ngc.nvidia.com/orgs/nvidia/teams/eval-factory/containers/bfcl?version=25.10

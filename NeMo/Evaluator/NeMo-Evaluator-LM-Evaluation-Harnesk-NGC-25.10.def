@@ -1,0 +1,5 @@
+bootstrap: docker
+from: nvcr.io/nvidia/eval-factory/lm-evaluation-harness:25.10
+
+%help
+    https://catalog.ngc.nvidia.com/orgs/nvidia/teams/eval-factory/containers/lm-evaluation-harness?version=25.10

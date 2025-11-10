@@ -1,0 +1,5 @@
+bootstrap: docker
+from: nvcr.io/nvidia/eval-factory/nemo_skills:25.10
+
+%help
+    https://catalog.ngc.nvidia.com/orgs/nvidia/teams/eval-factory/containers/nemo_skills?version=25.10
