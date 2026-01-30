@@ -1,0 +1,9 @@
+Bootstrap: docker
+From: ghcr.io/astral-sh/uv:python3.12-trixie
+
+%help
+    Minimal uv container where you can install 
+
+%post
+    # Example:
+    # uv pip install --system torch
