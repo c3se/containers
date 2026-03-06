@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: ghcr.io/astral-sh/uv:python3.12-trixie
+From: ghcr.io/astral-sh/uv:0.9.28-python3.12-trixie
 
 %help
     Minimal uv container where you can install 
