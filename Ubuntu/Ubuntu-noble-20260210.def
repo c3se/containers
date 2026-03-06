@@ -1,0 +1,5 @@
+Bootstrap: docker
+From: ubuntu:noble-20260210
+
+%help
+    Minimal Ubuntu image from dockerhub
