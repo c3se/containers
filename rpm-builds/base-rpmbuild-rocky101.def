@@ -1,0 +1,11 @@
+Bootstrap: localimage
+From: /apps/containers/RockyLinux/RockyLinux-10.1.sif
+
+%environment
+    export LC_ALL=C
+
+%post
+    yum clean all
+    yum makecache
+    yum install -y rpm-build automake autoconf libtool make pkg-config less vim flex bison cmake which zlib-devel
+    yum upgrade -y
