@@ -1,0 +1,39 @@
+Bootstrap: docker
+From: pytorch/pytorch:2.7.0-cuda12.8-cudnn9-runtime
+
+%environment
+    export PIP_NO_CACHE_DIR=true
+    export UV_NO_CACHE=true
+    export PIP_ROOT_USER_ACTION=ignore
+
+    export LD_PRELOAD=libtcmalloc.so.4
+
+    ### disable model hashing for faster startup
+    export SD_NOHASHING=true
+    export SD_DOCKER=true
+    export SD_DEBUG=true
+    export SD_SKIPALL=true
+    export SD_LISTEN=true
+    export SD_QUICK=true
+    export SD_APILOG=true
+
+    ### The variables must be set by OOD
+    # SD_PORT
+    # SD_SUBPATH
+    # SD_LOG
+    # SD_DATADIR
+    # SD_MODELSDIR
+
+%post
+    apt-get -y update
+    apt-get -y install git build-essential google-perftools curl ffmpeg
+    /usr/sbin/ldconfig
+
+    # git clone https://github.com/appolloford/sdnext.git /sdnext
+    git clone https://github.com/vladmandic/sdnext /sdnext
+    cd /sdnext
+    python launch.py --debug --uv --use-cuda --test --optional
+    rm /sdnext/sdnext.log
+
+%runscript
+    python launch.py --agent-scheduler-sqlite-file=$SD_DATADIR/task_scheduler.sqlite3
