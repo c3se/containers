@@ -1,5 +1,5 @@
 Bootstrap: localimage
-From: base-rpmbuild-rocky96.sif
+From: base-rpmbuild-rocky98.sif
 
 %post
     yum upgrade -y
