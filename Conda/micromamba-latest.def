@@ -1,0 +1,28 @@
+Bootstrap: docker
+From: mambaorg/micromamba:latest
+
+%labels
+    Description "An example of using micromamba"
+
+%files
+    example_environment.yml
+
+%post
+    export PATH=/opt/conda/bin:$PATH
+
+    # Install everything from environment.yml
+    micromamba install -y -n base --file environment.yml
+    # and/or install specific package manually
+    micromamba install -y -n base -c conda-forge numpy
+    
+    # Cleanup to make container image smaller
+    micromamba clean --all --yes
+
+%environment
+    export PATH=/opt/conda/bin:$PATH
+
+%runscript
+    # This makes it possible to "run" the container image and it
+    # will automatically launch python with any arguments you pass
+    exec python "$@"
+
