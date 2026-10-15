@@ -6,3 +6,6 @@ test/
 junk/
 Ollama/ollama
 *.sif.bak
+modules/.spider.lock
+modules/cache*
+modules/container/
