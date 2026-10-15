@@ -40,13 +40,18 @@ def parse_metadata(sif: Path) -> dict[str, str]:
 
     # Parse filename for name and version
     namepattern = metadata.get("name", "[^-]+")
-    m = re.fullmatch(fr"({namepattern})-(.+)\.sif", sif.name, flags=re.IGNORECASE)
+    versionpattern = metadata.get("versionpattern", ".+")
+    m = re.fullmatch(fr"({namepattern})-({versionpattern})\.sif", sif.name, flags=re.IGNORECASE)
     if not m:
         raise RuntimeError(f"Failed to parse name and version from {sif.name}")
     parsed_name, parsed_version = m.groups()
     if "name" not in metadata and parsed_name != sif.parent.name:
         raise RuntimeError(f'Mismatch between parsed name "{parsed_name}" and parent directory "{sif.parent.name}".')
-    if "version" not in metadata and not parsed_version[0].isdigit():
+    if (
+        "version" not in metadata
+        and "versionpattern" not in metadata
+        and not parsed_version[0].isdigit()
+    ):
         raise RuntimeError(f'Unexpected version format "{parsed_version}" from {sif.name}.')
 
     # .metadata.json preceeds parsing rules
@@ -99,7 +104,6 @@ set_alias(name .. "_exec", "apptainer exec " .. container_image)
 set_alias(name .. "_shell", "apptainer shell " .. container_image)
 LmodMessage('Use "apptainer cmd $CONTAINER_IMAGE ..." or the ' .. name .. "_exec and " .. name .. "_shell helper aliases'\''")
 """
-
 
     logger.info(f'Creating module "container/{name}/{version}" from\n  {sif}.')
 
@@ -155,7 +159,7 @@ def main():
     for path in args.paths:
         try:
             create_module(path, tree=tree, force=args.force)
-        except Exception as e:
+        except RuntimeError as e:
             logger.error(f"Failed to create module for {path}")
             if args.skip_on_error:
                 logger.error(e)
