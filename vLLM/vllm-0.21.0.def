@@ -1,0 +1,5 @@
+bootstrap: docker
+from: vllm/vllm-openai:v0.21.0
+
+%post
+    pip install -U starlette

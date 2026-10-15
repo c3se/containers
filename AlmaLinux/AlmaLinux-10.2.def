@@ -1,0 +1,8 @@
+Bootstrap: docker
+From: almalinux:10.2
+
+%post
+    dnf install -y util-linux
+
+%help
+    AlmaLinux image with fakeroot

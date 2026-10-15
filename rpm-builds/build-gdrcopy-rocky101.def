@@ -1,0 +1,7 @@
+Bootstrap: localimage
+From: base-rpmbuild-rocky101.sif
+
+%post
+    dnf install -y epel-release
+    dnf install -y dkms nvidia-driver-devel
+    dnf clean all

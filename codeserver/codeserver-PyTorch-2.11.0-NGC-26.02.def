@@ -1,0 +1,16 @@
+Bootstrap: localimage
+From: /apps/containers/PyTorch/PyTorch-2.11.0-NGC-26.02.sif
+
+%post
+    apt update
+    apt install curl -y
+    curl -fsSL https://code-server.dev/install.sh | sh
+    mkdir -p /usr/local/share/code-server/extensions
+    # install extensions globally, reuse the pre-installed extensions by setting --builtin-extensions-dir in runtime
+    # https://github.com/coder/code-server/blob/85042e29101491d939bb508d0686cd915d19c06a/src/node/cli.ts#L241
+    code-server --install-extension meta.pyrefly --extensions-dir /usr/local/share/code-server/extensions
+    code-server --install-extension ms-vscode.cpptools-themes --extensions-dir /usr/local/share/code-server/extensions
+    code-server --install-extension ms-toolsai.jupyter --extensions-dir /usr/local/share/code-server/extensions
+    # for using local AI code assistant
+    code-server --install-extension kilocode.Kilo-Code --extensions-dir /usr/local/share/code-server/extensions
+

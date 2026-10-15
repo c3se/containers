@@ -1,0 +1,7 @@
+bootstrap: localimage
+from: /apps/containers/RockyLinux/RockyLinux-10.sif
+
+%post  # Work needed to make this work with OOD and MCPs
+    dnf update -y
+    dnf install -y nodejs npm python3-pip
+    pip install chainlit==2.9.0 openai mcp[cli] requests bs4 SQLAlchemy aiosqlite

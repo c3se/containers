@@ -1,0 +1,10 @@
+Bootstrap: localimage
+From: /apps/containers/AlmaLinux/AlmaLinux-10.2.sif
+
+%environment
+    export LC_ALL=C
+
+%post
+    yum clean all
+    yum install -y rpm-build automake autoconf libtool make pkg-config less vim flex bison cmake which zlib-devel
+    yum upgrade -y

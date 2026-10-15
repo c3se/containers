@@ -4,4 +4,5 @@ From: base-rpmbuild-rocky101.sif
 %post
     yum upgrade -y
     yum install -y libedit-devel ncurses-devel gcc-c++ libstdc++-devel openssl-devel systemd-devel boost-devel checkpolicy logrotate mariadb-connector-c-devel postgresql-devel selinux-policy-devel hardlink
+    # yum install -y protobuf # if want to build icinga2 > 2.16.0 with opentelemetry
     yum upgrade -y

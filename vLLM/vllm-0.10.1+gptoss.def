@@ -1,2 +1,0 @@
-bootstrap: docker
-from: vllm/vllm-openai:gptoss
