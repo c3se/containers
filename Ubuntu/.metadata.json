@@ -1,0 +1,3 @@
+{
+    "versionpattern": "(?:focal|jammy|noble|resolute)-.+"
+}
