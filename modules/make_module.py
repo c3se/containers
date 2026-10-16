@@ -153,8 +153,8 @@ def update_spider_cache(tree: Path):
         [
             'flock', '-n', f'{tree}/.spider.lock', 
             '/usr/share/lmod/lmod/libexec/update_lmod_system_cache_files',
-            '-d', f'{tree}/cacheDir', 
-            '-t', f'{tree}/cacheTS.txt',
+            '-d', f'{tree}/../cacheDir', 
+            '-t', f'{tree}/../cacheTS.txt',
             f'{tree}/',
         ],
         check=True,
