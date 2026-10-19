@@ -8,7 +8,7 @@ From: ubuntu:24.04
     echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
     add-apt-repository -y ppa:cartavis-team/carta
     apt-get update
-    apt-get install -y carta-beta
+    apt-get install -y carta=6.0.0~noble1
 
 %environment
     PORT=8947
