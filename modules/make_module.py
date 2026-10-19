@@ -87,7 +87,7 @@ def create_module(sif: Path, tree: Path, force: bool = False):
     sif = Path(sif).resolve()
     metadata = parse_metadata(sif)
     if not metadata["create_module"]:
-        logger.warning(f"Skipping {sif.name} based on metadata.")
+        logger.info(f"Skipping {sif.name} based on metadata.")
         return
     name = metadata["name"]
     version = metadata["version"]
@@ -120,12 +120,12 @@ LmodMessage('Use "apptainer cmd $CONTAINER_IMAGE ..." or the "' .. name .. '_exe
 
         if template == existing:
             # Skip if no changes
-            logger.info(f"Skipped {out} (identical file exists).")
+            logger.debug(f"Skipped {out} (identical file exists).")
             return
 
         elif not force:
             # Ask if overwrite or not
-            prompt = "File exists. Overwrite? [Y/N] "
+            prompt = "Module file exists. Overwrite? [Y/N] "
             print(
                 '\n'.join(
                     unified_diff(
@@ -140,6 +140,8 @@ LmodMessage('Use "apptainer cmd $CONTAINER_IMAGE ..." or the "' .. name .. '_exe
                 print("Please enter Y or N.")
             if answer == "n":
                 return
+        else:
+            logger.warning(f"Writing over existing {out}.")
                 
     # Write template to file
     out.parent.mkdir(parents=True, exist_ok=True)
