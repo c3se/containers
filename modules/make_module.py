@@ -66,6 +66,8 @@ def parse_metadata(sif: Path) -> dict[str, Any]:
     defaults = {
         "name": parsed_name,
         "version": parsed_version,
+        "container_image": sif,
+        "exec_aliases": [],
         "help": f"""
 
 Description
@@ -79,7 +81,34 @@ Description
         # Add values, but don't overwrite
         if k not in metadata:
             metadata[k] = v
+
+    # Check for unexpected keys
+    for key in metadata:
+        if key not in defaults:
+            raise RuntimeError(f"Unexpected metadata key {key}")
     return metadata
+
+
+def get_lua_content(metadata: dict) -> str:
+    try:
+        return """help([==[{help}]==])
+
+whatis([==[{whatis}]==])
+
+local name = "{name}"
+local version = "{version}"
+
+conflict(name)
+
+local container_image = pathJoin("{container_image}")
+setenv("CONTAINER_IMAGE", container_image)
+set_alias(name .. "_exec", "apptainer exec " .. container_image)
+set_alias(name .. "_shell", "apptainer shell " .. container_image)
+LmodMessage('Use "apptainer cmd $CONTAINER_IMAGE ..." or the "' .. name .. '_exec" and "' .. name .. '_shell" helper aliases')
+""".format(**metadata)
+    except KeyError:
+        logger.error(f"Couldn't create module file content from {metadata}")
+        raise
 
 
 def create_module(
@@ -99,22 +128,7 @@ def create_module(
     version = metadata["version"]
 
     # Create content of lua file
-    template = f"""help([==[{metadata["help"]}]==])
-
-whatis([==[{metadata["whatis"]}]==])
-
-local root = "{sif.parent}"
-local name = "{name}"
-local version = "{version}"
-
-conflict(name)
-
-local container_image = pathJoin(root, "{sif.name}")
-setenv("CONTAINER_IMAGE", container_image)
-set_alias(name .. "_exec", "apptainer exec " .. container_image)
-set_alias(name .. "_shell", "apptainer shell " .. container_image)
-LmodMessage('Use "apptainer cmd $CONTAINER_IMAGE ..." or the "' .. name .. '_exec" and "' .. name .. '_shell" helper aliases')
-"""
+    lua_content = get_lua_content(metadata)
 
     logger.info(f'Creating module "container/{name}/{version}" from\n  {sif}.')
 
@@ -124,7 +138,7 @@ LmodMessage('Use "apptainer cmd $CONTAINER_IMAGE ..." or the "' .. name .. '_exe
     if out.is_file():
         existing = out.read_text()
 
-        if template == existing:
+        if lua_content == existing:
             # Skip if no changes
             logger.debug(f"Skipped {out} (identical file exists).")
             return
@@ -136,7 +150,7 @@ LmodMessage('Use "apptainer cmd $CONTAINER_IMAGE ..." or the "' .. name .. '_exe
                 '\n'.join(
                     unified_diff(
                         a=existing.splitlines(),
-                        b=template.splitlines(),
+                        b=lua_content.splitlines(),
                         fromfile=str(out),
                         tofile="new file",
                     )
@@ -153,11 +167,11 @@ LmodMessage('Use "apptainer cmd $CONTAINER_IMAGE ..." or the "' .. name .. '_exe
     if not dry_run:
         logger.info("Creating module file...")
         out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(template)
+        out.write_text(lua_content)
     else:
         print(f"DRYRUN: Creating directory: {out.parent}")
         print(f"DRYRUN: Writing file: {out}")
-        print(template)
+        print(lua_content)
     logger.info(f"Created {out}")
 
 
