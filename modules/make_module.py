@@ -63,6 +63,7 @@ def parse_metadata(sif: Path) -> dict[str, Any]:
     name = metadata.get("name", parsed_name)
 
     # Add defaults
+    # these are also all the implemented and expected values
     defaults = {
         "name": parsed_name,
         "version": parsed_version,
@@ -90,21 +91,29 @@ Description
 
 
 def get_lua_content(metadata: dict) -> str:
+    '''Creates contents of lmod module file from metadata'''
+    custom_set_aliases = "".join([
+        f'set_alias("{alias}", "apptainer exec " .. container_image .. " {alias}")\n'
+        for alias in metadata["exec_aliases"]
+    ])
+    custom_aliases_names = "".join(f"{alias}, " for alias in metadata["exec_aliases"])
     try:
-        return """help([==[{help}]==])
+        return f"""help([==[{metadata["help"]}]==])
 
-whatis([==[{whatis}]==])
+whatis([==[{metadata["whatis"]}]==])
 
-local name = "{name}"
-local version = "{version}"
+local root = "{metadata["container_image"].parent}"
+local name = "{metadata["name"]}"
+local version = "{metadata["version"]}"
 
 conflict(name)
 
-local container_image = pathJoin("{container_image}")
+local container_image = pathJoin(root, "{metadata["container_image"].name}")
 setenv("CONTAINER_IMAGE", container_image)
 set_alias(name .. "_exec", "apptainer exec " .. container_image)
 set_alias(name .. "_shell", "apptainer shell " .. container_image)
-LmodMessage('Use "apptainer cmd $CONTAINER_IMAGE ..." or the "' .. name .. '_exec" and "' .. name .. '_shell" helper aliases')
+{custom_set_aliases}
+LmodMessage('Use "apptainer cmd $CONTAINER_IMAGE ..." or the {custom_aliases_names}"' .. name .. '_exec" and "' .. name .. '_shell" helper aliases')
 """.format(**metadata)
     except KeyError:
         logger.error(f"Couldn't create module file content from {metadata}")
