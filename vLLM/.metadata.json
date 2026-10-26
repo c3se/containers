@@ -1,3 +1,4 @@
 {
-    "name": "vLLM"
+    "name": "vLLM",
+    "exec_aliases": ["vllm"]
 }
