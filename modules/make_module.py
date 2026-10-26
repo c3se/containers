@@ -18,6 +18,7 @@ parser.add_argument("paths", type=Path, nargs="+", help="Path(s) to existing .si
 parser.add_argument("--force", "-f", action="store_true")
 parser.add_argument("--skip-on-error", action="store_true")
 parser.add_argument("--log-level", default="WARNING", choices=["NOTSET", "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"])
+parser.add_argument("--dry-run", "-D", action="store_true")
 
 
 def parse_metadata(sif: Path) -> dict[str, Any]:
@@ -81,7 +82,12 @@ Description
     return metadata
 
 
-def create_module(sif: Path, tree: Path, force: bool = False):
+def create_module(
+    sif: Path,
+    tree: Path,
+    force: bool = False,
+    dry_run: bool = False,
+):
     """Create a lmod module file for sif file."""
     # Parse metadata
     sif = Path(sif).resolve()
@@ -144,8 +150,14 @@ LmodMessage('Use "apptainer cmd $CONTAINER_IMAGE ..." or the "' .. name .. '_exe
             logger.warning(f"Writing over existing {out}.")
                 
     # Write template to file
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(template)
+    if not dry_run:
+        logger.info("Creating module file...")
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(template)
+    else:
+        print(f"DRYRUN: Creating directory: {out.parent}")
+        print(f"DRYRUN: Writing file: {out}")
+        print(template)
     logger.info(f"Created {out}")
 
 
@@ -170,7 +182,8 @@ def main():
 
     for path in args.paths:
         try:
-            create_module(path, tree=tree, force=args.force)
+            print(args)
+            create_module(path, tree=tree, force=args.force, dry_run=args.dry_run)
         except RuntimeError as e:
             logger.error(f"Failed to create module for {path}")
             if args.skip_on_error:
@@ -178,7 +191,10 @@ def main():
                 continue
             raise
 
-    update_spider_cache(tree=tree)
+    if not args.dry_run:
+        update_spider_cache(tree=tree)
+    else:
+        print(f"DRYRUN: Create spider cache under {tree}")
 
 
 if __name__ == "__main__":
