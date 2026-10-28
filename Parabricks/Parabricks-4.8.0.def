@@ -1,0 +1,5 @@
+Bootstrap: docker
+From: nvcr.io/nvidia/clara/clara-parabricks:4.8.0-1
+
+%help
+    https://docs.nvidia.com/clara/parabricks/about-parabricks
