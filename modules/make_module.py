@@ -205,7 +205,6 @@ def main():
 
     for path in args.paths:
         try:
-            print(args)
             create_module(path, tree=tree, force=args.force, dry_run=args.dry_run)
         except RuntimeError as e:
             logger.error(f"Failed to create module for {path}")
